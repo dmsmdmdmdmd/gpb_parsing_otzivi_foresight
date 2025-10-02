@@ -17,3 +17,5 @@ curl.exe -s -X POST -H "Content-Type: application/json" -d "@C:\...\test_250_rev
  5.Открываем powershell и в нужной директории прописываем: streamlit run dash.py<br>
  
 </h3>Открывается красивый и понятный дашборд с полным анализом.</h3>
+
+</h1>Как запустить? (На сайте(https://gpbparsingotziviforesight-wgf4rxgq65hm6pbuqb4cad.streamlit.app/))</h1>
