@@ -22,6 +22,6 @@ curl.exe -s -X POST -H "Content-Type: application/json" -d "@C:\...\test_250_rev
 
 </h1>Запускаем удаленно</h1> 
 
-<br>Переходим *[По ссылке](https://gpbparsingotziviforesight-wgf4rxgq65hm6pbuqb4cad.streamlit.app/)*.
+<br>Переходим *[По ссылке](https://gpbparsingotziviforesight-wgf4rxgq65hm6pbuqb4cad.streamlit.app/)*. <br>
 Загружаем файл формата .json с отзывами, <br>
 Наслаждаемся
