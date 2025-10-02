@@ -1,0 +1,556 @@
+2025-10-01 22:01:34,932 - WARNING -  * Debugger is active!
+2025-10-01 22:01:34,935 - INFO -  * Debugger PIN: 110-465-568
+2025-10-01 22:01:46,185 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://172.19.0.1:5000
+2025-10-01 22:01:46,185 - INFO - [33mPress CTRL+C to quit[0m
+2025-10-01 22:01:46,192 - INFO -  * Restarting with watchdog (windowsapi)
+2025-10-01 22:01:46,589 - WARNING -  * Debugger is active!
+2025-10-01 22:01:46,591 - INFO -  * Debugger PIN: 110-465-568
+2025-10-01 22:01:51,140 - INFO - 127.0.0.1 - - [01/Oct/2025 22:01:51] "POST /predict HTTP/1.1" 200 -
+2025-10-01 22:05:50,969 - INFO -  * Detected change in 'C:\\Users\\danil\\OneDrive\\Документы\\gazprombank_reviews_sravni\\app.py', reloading
+2025-10-01 22:05:50,969 - INFO -  * Detected change in 'C:\\Users\\danil\\OneDrive\\Документы\\gazprombank_reviews_sravni\\app.py', reloading
+2025-10-01 22:05:51,907 - INFO -  * Restarting with watchdog (windowsapi)
+2025-10-01 22:05:52,325 - WARNING -  * Debugger is active!
+2025-10-01 22:05:52,327 - INFO -  * Debugger PIN: 110-465-568
+2025-10-01 22:05:58,573 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://172.19.0.1:5000
+2025-10-01 22:05:58,573 - INFO - [33mPress CTRL+C to quit[0m
+2025-10-01 22:05:58,579 - INFO -  * Restarting with watchdog (windowsapi)
+2025-10-01 22:05:58,989 - WARNING -  * Debugger is active!
+2025-10-01 22:05:58,991 - INFO -  * Debugger PIN: 110-465-568
+2025-10-01 22:06:01,885 - INFO - 127.0.0.1 - - [01/Oct/2025 22:06:01] "POST /predict HTTP/1.1" 200 -
+2025-10-01 22:12:12,410 - INFO -  * Detected change in 'C:\\Users\\danil\\OneDrive\\Документы\\gazprombank_reviews_sravni\\app.py', reloading
+2025-10-01 22:12:12,411 - INFO -  * Detected change in 'C:\\Users\\danil\\OneDrive\\Документы\\gazprombank_reviews_sravni\\app.py', reloading
+2025-10-01 22:12:13,464 - INFO -  * Restarting with watchdog (windowsapi)
+2025-10-01 22:12:13,882 - WARNING -  * Debugger is active!
+2025-10-01 22:12:13,884 - INFO -  * Debugger PIN: 110-465-568
+2025-10-01 22:12:23,624 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://172.19.0.1:5000
+2025-10-01 22:12:23,624 - INFO - [33mPress CTRL+C to quit[0m
+2025-10-01 22:12:23,632 - INFO -  * Restarting with watchdog (windowsapi)
+2025-10-01 22:12:24,037 - WARNING -  * Debugger is active!
+2025-10-01 22:12:24,039 - INFO -  * Debugger PIN: 110-465-568
+2025-10-01 22:12:27,926 - INFO - 127.0.0.1 - - [01/Oct/2025 22:12:27] "POST /predict HTTP/1.1" 200 -
+2025-10-01 22:17:44,672 - INFO -  * Detected change in 'C:\\Users\\danil\\OneDrive\\Документы\\gazprombank_reviews_sravni\\app.py', reloading
+2025-10-01 22:17:44,672 - INFO -  * Detected change in 'C:\\Users\\danil\\OneDrive\\Документы\\gazprombank_reviews_sravni\\app.py', reloading
+2025-10-01 22:17:45,424 - INFO -  * Restarting with watchdog (windowsapi)
+2025-10-01 22:17:45,834 - WARNING -  * Debugger is active!
+2025-10-01 22:17:45,836 - INFO -  * Debugger PIN: 110-465-568
+2025-10-01 22:17:54,269 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://172.19.0.1:5000
+2025-10-01 22:17:54,269 - INFO - [33mPress CTRL+C to quit[0m
+2025-10-01 22:17:54,275 - INFO -  * Restarting with watchdog (windowsapi)
+2025-10-01 22:17:54,688 - WARNING -  * Debugger is active!
+2025-10-01 22:17:54,690 - INFO -  * Debugger PIN: 110-465-568
+2025-10-01 22:17:57,788 - INFO - 127.0.0.1 - - [01/Oct/2025 22:17:57] "POST /predict HTTP/1.1" 200 -
+2025-10-01 22:25:31,136 - INFO -  * Detected change in 'C:\\Users\\danil\\OneDrive\\Документы\\gazprombank_reviews_sravni\\app.py', reloading
+2025-10-01 22:25:31,137 - INFO -  * Detected change in 'C:\\Users\\danil\\OneDrive\\Документы\\gazprombank_reviews_sravni\\app.py', reloading
+2025-10-01 22:25:31,212 - INFO -  * Restarting with watchdog (windowsapi)
+2025-10-01 22:25:31,626 - WARNING -  * Debugger is active!
+2025-10-01 22:25:31,628 - INFO -  * Debugger PIN: 110-465-568
+2025-10-01 22:25:39,007 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://172.19.0.1:5000
+2025-10-01 22:25:39,007 - INFO - [33mPress CTRL+C to quit[0m
+2025-10-01 22:25:39,014 - INFO -  * Restarting with watchdog (windowsapi)
+2025-10-01 22:25:39,435 - WARNING -  * Debugger is active!
+2025-10-01 22:25:39,437 - INFO -  * Debugger PIN: 110-465-568
+2025-10-01 22:25:41,932 - INFO - 127.0.0.1 - - [01/Oct/2025 22:25:41] "POST /predict HTTP/1.1" 200 -
+2025-10-01 22:28:40,197 - INFO -  * Detected change in 'C:\\Users\\danil\\OneDrive\\Документы\\gazprombank_reviews_sravni\\app.py', reloading
+2025-10-01 22:28:40,197 - INFO -  * Detected change in 'C:\\Users\\danil\\OneDrive\\Документы\\gazprombank_reviews_sravni\\app.py', reloading
+2025-10-01 22:28:40,696 - INFO -  * Restarting with watchdog (windowsapi)
+2025-10-01 22:28:41,102 - WARNING -  * Debugger is active!
+2025-10-01 22:28:41,105 - INFO -  * Debugger PIN: 110-465-568
+2025-10-01 22:29:32,718 - INFO -  * Detected change in 'C:\\Users\\danil\\OneDrive\\Документы\\gazprombank_reviews_sravni\\app.py', reloading
+2025-10-01 22:29:32,718 - INFO -  * Detected change in 'C:\\Users\\danil\\OneDrive\\Документы\\gazprombank_reviews_sravni\\app.py', reloading
+2025-10-01 22:29:32,718 - INFO -  * Detected change in 'C:\\Users\\danil\\OneDrive\\Документы\\gazprombank_reviews_sravni\\app.py', reloading
+2025-10-01 22:29:33,229 - INFO -  * Restarting with watchdog (windowsapi)
+2025-10-01 22:29:33,641 - WARNING -  * Debugger is active!
+2025-10-01 22:29:33,644 - INFO -  * Debugger PIN: 110-465-568
+2025-10-01 22:41:01,877 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://172.19.0.1:5000
+2025-10-01 22:41:01,877 - INFO - [33mPress CTRL+C to quit[0m
+2025-10-01 22:41:01,884 - INFO -  * Restarting with watchdog (windowsapi)
+2025-10-01 22:41:02,296 - WARNING -  * Debugger is active!
+2025-10-01 22:41:02,298 - INFO -  * Debugger PIN: 110-465-568
+2025-10-01 22:41:04,087 - INFO - 127.0.0.1 - - [01/Oct/2025 22:41:04] "POST /predict HTTP/1.1" 200 -
+2025-10-01 22:44:21,394 - INFO -  * Detected change in 'C:\\Users\\danil\\OneDrive\\Документы\\gazprombank_reviews_sravni\\app.py', reloading
+2025-10-01 22:44:21,394 - INFO -  * Detected change in 'C:\\Users\\danil\\OneDrive\\Документы\\gazprombank_reviews_sravni\\app.py', reloading
+2025-10-01 22:44:21,562 - INFO -  * Restarting with watchdog (windowsapi)
+2025-10-01 22:44:21,966 - WARNING -  * Debugger is active!
+2025-10-01 22:44:21,968 - INFO -  * Debugger PIN: 110-465-568
+2025-10-01 22:44:34,008 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://172.19.0.1:5000
+2025-10-01 22:44:34,008 - INFO - [33mPress CTRL+C to quit[0m
+2025-10-01 22:44:34,016 - INFO -  * Restarting with watchdog (windowsapi)
+2025-10-01 22:44:34,405 - WARNING -  * Debugger is active!
+2025-10-01 22:44:34,406 - INFO -  * Debugger PIN: 110-465-568
+2025-10-01 22:44:44,869 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://172.19.0.1:5000
+2025-10-01 22:44:44,869 - INFO - [33mPress CTRL+C to quit[0m
+2025-10-01 22:44:44,875 - INFO -  * Restarting with watchdog (windowsapi)
+2025-10-01 22:44:45,265 - WARNING -  * Debugger is active!
+2025-10-01 22:44:45,268 - INFO -  * Debugger PIN: 110-465-568
+2025-10-01 22:45:16,916 - INFO - 127.0.0.1 - - [01/Oct/2025 22:45:16] "POST /predict HTTP/1.1" 200 -
+2025-10-01 22:48:23,176 - INFO - 127.0.0.1 - - [01/Oct/2025 22:48:23] "POST /predict HTTP/1.1" 200 -
+2025-10-01 22:56:04,181 - INFO -  * Detected change in 'C:\\Users\\danil\\OneDrive\\Документы\\gazprombank_reviews_sravni\\app.py', reloading
+2025-10-01 22:56:04,181 - INFO -  * Detected change in 'C:\\Users\\danil\\OneDrive\\Документы\\gazprombank_reviews_sravni\\app.py', reloading
+2025-10-01 22:56:05,039 - INFO -  * Restarting with watchdog (windowsapi)
+2025-10-01 22:56:05,453 - WARNING -  * Debugger is active!
+2025-10-01 22:56:05,455 - INFO -  * Debugger PIN: 110-465-568
+2025-10-01 22:56:12,658 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://172.19.0.1:5000
+2025-10-01 22:56:12,658 - INFO - [33mPress CTRL+C to quit[0m
+2025-10-01 22:56:12,664 - INFO -  * Restarting with watchdog (windowsapi)
+2025-10-01 22:56:13,059 - WARNING -  * Debugger is active!
+2025-10-01 22:56:13,061 - INFO -  * Debugger PIN: 110-465-568
+2025-10-01 22:56:21,859 - ERROR - Server error: cannot access free variable 'word' where it is not associated with a value in enclosing scope
+2025-10-01 22:56:21,859 - INFO - 127.0.0.1 - - [01/Oct/2025 22:56:21] "[35m[1mPOST /predict HTTP/1.1[0m" 500 -
+2025-10-01 22:56:33,493 - ERROR - Server error: cannot access free variable 'word' where it is not associated with a value in enclosing scope
+2025-10-01 22:56:33,494 - INFO - 127.0.0.1 - - [01/Oct/2025 22:56:33] "[35m[1mPOST /predict HTTP/1.1[0m" 500 -
+2025-10-01 22:57:12,954 - ERROR - Server error: cannot access free variable 'word' where it is not associated with a value in enclosing scope
+2025-10-01 22:57:12,954 - INFO - 127.0.0.1 - - [01/Oct/2025 22:57:12] "[35m[1mPOST /predict HTTP/1.1[0m" 500 -
+2025-10-01 23:00:38,815 - INFO -  * Detected change in 'C:\\Users\\danil\\OneDrive\\Документы\\gazprombank_reviews_sravni\\app.py', reloading
+2025-10-01 23:00:38,815 - INFO -  * Detected change in 'C:\\Users\\danil\\OneDrive\\Документы\\gazprombank_reviews_sravni\\app.py', reloading
+2025-10-01 23:00:39,414 - INFO -  * Restarting with watchdog (windowsapi)
+2025-10-01 23:00:39,835 - WARNING -  * Debugger is active!
+2025-10-01 23:00:39,838 - INFO -  * Debugger PIN: 110-465-568
+2025-10-01 23:00:46,663 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://172.19.0.1:5000
+2025-10-01 23:00:46,663 - INFO - [33mPress CTRL+C to quit[0m
+2025-10-01 23:00:46,668 - INFO -  * Restarting with watchdog (windowsapi)
+2025-10-01 23:00:47,067 - WARNING -  * Debugger is active!
+2025-10-01 23:00:47,069 - INFO -  * Debugger PIN: 110-465-568
+2025-10-01 23:01:40,833 - INFO - 127.0.0.1 - - [01/Oct/2025 23:01:40] "POST /predict HTTP/1.1" 200 -
+2025-10-01 23:01:54,376 - INFO - 127.0.0.1 - - [01/Oct/2025 23:01:54] "POST /predict HTTP/1.1" 200 -
+2025-10-01 23:03:45,371 - INFO -  * Detected change in 'C:\\Users\\danil\\OneDrive\\Документы\\gazprombank_reviews_sravni\\dash.py', reloading
+2025-10-01 23:03:45,792 - INFO -  * Detected change in 'C:\\Users\\danil\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\streamlit\\env_util.py', reloading
+2025-10-01 23:03:45,792 - INFO -  * Detected change in 'C:\\Users\\danil\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\streamlit\\delta_generator.py', reloading
+2025-10-01 23:03:45,793 - INFO -  * Detected change in 'C:\\Users\\danil\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\streamlit\\elements\\heading.py', reloading
+2025-10-01 23:03:45,793 - INFO -  * Detected change in 'C:\\Users\\danil\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\streamlit\\runtime\\metrics_util.py', reloading
+2025-10-01 23:03:45,793 - INFO -  * Detected change in 'C:\\Users\\danil\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\streamlit\\runtime\\scriptrunner\\script_runner.py', reloading
+2025-10-01 23:03:45,793 - INFO -  * Detected change in 'C:\\Users\\danil\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\streamlit\\runtime\\scriptrunner\\exec_code.py', reloading
+2025-10-01 23:03:45,794 - INFO -  * Detected change in 'C:\\Users\\danil\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\threading.py', reloading
+2025-10-01 23:03:46,343 - INFO -  * Restarting with watchdog (windowsapi)
+2025-10-01 23:03:46,748 - WARNING -  * Debugger is active!
+2025-10-01 23:03:46,749 - INFO -  * Debugger PIN: 110-465-568
+2025-10-01 23:08:28,816 - INFO -  * Detected change in 'C:\\Users\\danil\\OneDrive\\Документы\\gazprombank_reviews_sravni\\dash.py', reloading
+2025-10-01 23:08:28,816 - INFO -  * Detected change in 'C:\\Users\\danil\\OneDrive\\Документы\\gazprombank_reviews_sravni\\dash.py', reloading
+2025-10-01 23:08:29,111 - INFO -  * Restarting with watchdog (windowsapi)
+2025-10-01 23:08:29,539 - WARNING -  * Debugger is active!
+2025-10-01 23:08:29,541 - INFO -  * Debugger PIN: 110-465-568
+2025-10-01 23:13:22,855 - INFO -  * Detected change in 'C:\\Users\\danil\\OneDrive\\Документы\\gazprombank_reviews_sravni\\generate_test.py', reloading
+2025-10-01 23:13:22,855 - INFO -  * Detected change in 'C:\\Users\\danil\\OneDrive\\Документы\\gazprombank_reviews_sravni\\generate_test.py', reloading
+2025-10-01 23:13:23,203 - INFO -  * Detected change in 'C:\\Users\\danil\\OneDrive\\Документы\\gazprombank_reviews_sravni\\generate_test.py', reloading
+2025-10-01 23:13:23,204 - INFO -  * Detected change in 'C:\\Users\\danil\\OneDrive\\Документы\\gazprombank_reviews_sravni\\generate_test.py', reloading
+2025-10-01 23:13:23,913 - INFO -  * Restarting with watchdog (windowsapi)
+2025-10-01 23:13:24,341 - WARNING -  * Debugger is active!
+2025-10-01 23:13:24,343 - INFO -  * Debugger PIN: 110-465-568
+2025-10-01 23:16:20,798 - INFO - 127.0.0.1 - - [01/Oct/2025 23:16:20] "POST /predict HTTP/1.1" 200 -
+2025-10-01 23:18:48,292 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://172.19.0.1:5000
+2025-10-01 23:18:48,293 - INFO - [33mPress CTRL+C to quit[0m
+2025-10-01 23:18:48,299 - INFO -  * Restarting with watchdog (windowsapi)
+2025-10-01 23:18:48,718 - WARNING -  * Debugger is active!
+2025-10-01 23:18:48,721 - INFO -  * Debugger PIN: 110-465-568
+2025-10-01 23:19:34,457 - INFO - 127.0.0.1 - - [01/Oct/2025 23:19:34] "POST /predict HTTP/1.1" 200 -
+2025-10-01 23:19:58,061 - INFO - 127.0.0.1 - - [01/Oct/2025 23:19:58] "POST /predict HTTP/1.1" 200 -
+2025-10-01 23:21:56,027 - INFO -  * Detected change in 'C:\\Users\\danil\\OneDrive\\Документы\\gazprombank_reviews_sravni\\generate_test.py', reloading
+2025-10-01 23:21:56,995 - INFO -  * Restarting with watchdog (windowsapi)
+2025-10-01 23:21:57,417 - WARNING -  * Debugger is active!
+2025-10-01 23:21:57,420 - INFO -  * Debugger PIN: 110-465-568
+2025-10-01 23:23:21,724 - INFO - 127.0.0.1 - - [01/Oct/2025 23:23:21] "POST /predict HTTP/1.1" 200 -
+2025-10-01 23:28:16,248 - INFO -  * Detected change in 'C:\\Users\\danil\\OneDrive\\Документы\\gazprombank_reviews_sravni\\dash.py', reloading
+2025-10-01 23:28:16,894 - INFO -  * Restarting with watchdog (windowsapi)
+2025-10-01 23:28:17,299 - WARNING -  * Debugger is active!
+2025-10-01 23:28:17,301 - INFO -  * Debugger PIN: 110-465-568
+2025-10-01 23:29:57,132 - INFO -  * Detected change in 'C:\\Users\\danil\\OneDrive\\Документы\\gazprombank_reviews_sravni\\generate_test.py', reloading
+2025-10-01 23:29:57,132 - INFO -  * Detected change in 'C:\\Users\\danil\\OneDrive\\Документы\\gazprombank_reviews_sravni\\generate_test.py', reloading
+2025-10-01 23:29:57,478 - INFO -  * Restarting with watchdog (windowsapi)
+2025-10-01 23:29:57,879 - WARNING -  * Debugger is active!
+2025-10-01 23:29:57,881 - INFO -  * Debugger PIN: 110-465-568
+2025-10-01 23:30:13,419 - INFO -  * Detected change in 'C:\\Users\\danil\\OneDrive\\Документы\\gazprombank_reviews_sravni\\generate_test.py', reloading
+2025-10-01 23:30:13,419 - INFO -  * Detected change in 'C:\\Users\\danil\\OneDrive\\Документы\\gazprombank_reviews_sravni\\generate_test.py', reloading
+2025-10-01 23:30:13,969 - INFO -  * Restarting with watchdog (windowsapi)
+2025-10-01 23:30:14,359 - WARNING -  * Debugger is active!
+2025-10-01 23:30:14,361 - INFO -  * Debugger PIN: 110-465-568
+2025-10-01 23:30:37,088 - INFO -  * Detected change in 'C:\\Users\\danil\\OneDrive\\Документы\\gazprombank_reviews_sravni\\api_reviews.py', reloading
+2025-10-01 23:30:37,468 - INFO -  * Restarting with watchdog (windowsapi)
+2025-10-01 23:30:37,860 - WARNING -  * Debugger is active!
+2025-10-01 23:30:37,862 - INFO -  * Debugger PIN: 110-465-568
+2025-10-01 23:31:02,325 - INFO -  * Detected change in 'C:\\Users\\danil\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\pandas\\core\\frame.py', reloading
+2025-10-01 23:31:02,337 - INFO -  * Detected change in 'C:\\Users\\danil\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\pandas\\core\\groupby\\groupby.py', reloading
+2025-10-01 23:31:02,345 - INFO -  * Detected change in 'C:\\Users\\danil\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\pandas\\core\\groupby\\grouper.py', reloading
+2025-10-01 23:31:02,958 - INFO -  * Restarting with watchdog (windowsapi)
+2025-10-01 23:31:03,352 - WARNING -  * Debugger is active!
+2025-10-01 23:31:03,354 - INFO -  * Debugger PIN: 110-465-568
+2025-10-01 23:35:56,765 - INFO -  * Detected change in 'C:\\Users\\danil\\OneDrive\\Документы\\gazprombank_reviews_sravni\\dash.py', reloading
+2025-10-01 23:35:56,765 - INFO -  * Detected change in 'C:\\Users\\danil\\OneDrive\\Документы\\gazprombank_reviews_sravni\\dash.py', reloading
+2025-10-01 23:35:56,765 - INFO -  * Detected change in 'C:\\Users\\danil\\OneDrive\\Документы\\gazprombank_reviews_sravni\\dash.py', reloading
+2025-10-01 23:35:57,720 - INFO -  * Restarting with watchdog (windowsapi)
+2025-10-01 23:35:58,123 - WARNING -  * Debugger is active!
+2025-10-01 23:35:58,125 - INFO -  * Debugger PIN: 110-465-568
+2025-10-01 23:39:06,382 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:06,399 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:06,418 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:06,437 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:06,456 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:06,475 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:06,494 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:06,513 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:06,532 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:06,551 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:06,570 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:06,589 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:06,608 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:06,627 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:06,646 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:06,664 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:06,683 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:06,702 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:06,721 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:06,740 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:06,760 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:06,782 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:06,802 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:06,821 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:06,840 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:06,858 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:06,878 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:06,896 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:06,915 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:06,935 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:06,953 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:06,972 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:06,991 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:07,010 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:07,029 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:07,047 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:07,066 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:07,085 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:07,104 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:07,123 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:07,143 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:07,162 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:07,181 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:07,200 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:07,219 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:07,238 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:07,257 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:07,276 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:07,295 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:07,314 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:07,333 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:07,353 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:07,373 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:07,391 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:07,410 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:07,429 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:07,447 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:07,466 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:07,485 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:07,504 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:07,523 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:07,542 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:07,561 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:07,580 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:07,599 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:07,618 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:07,636 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:07,655 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:07,674 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:07,693 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:07,712 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:07,731 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:07,749 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:07,769 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:07,789 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:07,808 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:07,827 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:07,846 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:07,865 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:07,884 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:07,902 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:07,921 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:07,939 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:07,958 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:07,977 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:07,995 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:08,014 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:08,033 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:08,052 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:08,071 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:08,090 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:08,109 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:08,128 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:08,148 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:08,166 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:08,185 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:08,204 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:08,223 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:08,242 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:08,260 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:08,280 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:08,298 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:08,317 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:08,337 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:08,356 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:08,375 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:08,394 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:08,413 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:08,432 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:08,451 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:08,470 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:08,489 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:08,509 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:08,526 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:08,546 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:08,565 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:08,584 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:08,602 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:08,622 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:08,641 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:08,659 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:08,678 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:08,698 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:08,716 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:08,735 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:08,754 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:08,775 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:08,794 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:08,813 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:08,832 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:08,851 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:08,869 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:08,888 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:08,906 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:08,926 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:08,945 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:08,964 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:08,983 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:09,002 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:09,021 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:09,040 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:09,059 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:09,078 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:09,096 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:09,116 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:09,136 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:09,155 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:09,174 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:09,193 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:09,212 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:09,231 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:09,250 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:09,269 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:09,288 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:09,306 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:09,326 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:09,345 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:09,363 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:09,383 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:09,402 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:09,422 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:09,441 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:09,459 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:09,478 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:09,497 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:09,516 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:09,535 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:09,554 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:09,572 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:09,592 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:09,610 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:09,629 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:09,648 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:09,668 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:09,686 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:09,705 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:09,724 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:09,743 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:09,762 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:09,783 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:09,801 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:09,820 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:09,839 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:09,857 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:09,876 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:09,894 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:09,914 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:09,933 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:09,951 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:09,969 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:09,988 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:10,008 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:10,026 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:10,045 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:10,065 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:10,083 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:10,101 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:10,121 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:10,141 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:10,159 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:10,177 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:10,196 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:10,215 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:10,234 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:10,252 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:10,270 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:10,289 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:10,309 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:10,328 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:10,347 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:10,365 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:10,384 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:10,402 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:10,421 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:10,439 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:10,457 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:10,476 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:10,495 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:10,514 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:10,533 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:10,552 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:10,570 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:10,588 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:10,608 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:10,626 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:10,645 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:10,664 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:10,684 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:10,702 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:10,721 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:10,739 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:10,761 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:10,781 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:10,800 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:10,819 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:10,837 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:10,855 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:10,874 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:10,893 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:10,910 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:10,924 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:10,942 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:10,962 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:10,980 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:10,998 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:11,016 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:11,036 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:11,054 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:11,073 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:11,092 - ERROR - Error writing to CSV file: [Errno 13] Permission denied: 'gazprombank_reviews_classified.csv'
+2025-10-01 23:39:11,093 - INFO - 127.0.0.1 - - [01/Oct/2025 23:39:11] "[31m[1mPOST /predict HTTP/1.1[0m" 400 -
+2025-10-01 23:42:53,988 - INFO - 127.0.0.1 - - [01/Oct/2025 23:42:53] "POST /predict HTTP/1.1" 200 -
+2025-10-01 23:43:29,622 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://172.19.0.1:5000
+2025-10-01 23:43:29,622 - INFO - [33mPress CTRL+C to quit[0m
+2025-10-01 23:43:29,630 - INFO -  * Restarting with watchdog (windowsapi)
+2025-10-01 23:43:30,044 - WARNING -  * Debugger is active!
+2025-10-01 23:43:30,046 - INFO -  * Debugger PIN: 110-465-568
+2025-10-01 23:50:44,338 - INFO -  * Detected change in 'C:\\Users\\danil\\OneDrive\\Документы\\gazprombank_reviews_sravni\\dash.py', reloading
+2025-10-01 23:50:44,338 - INFO -  * Detected change in 'C:\\Users\\danil\\OneDrive\\Документы\\gazprombank_reviews_sravni\\dash.py', reloading
+2025-10-01 23:50:44,570 - INFO -  * Restarting with watchdog (windowsapi)
+2025-10-01 23:50:44,979 - WARNING -  * Debugger is active!
+2025-10-01 23:50:44,982 - INFO -  * Debugger PIN: 110-465-568
+2025-10-01 23:53:25,802 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://172.19.0.1:5000
+2025-10-01 23:53:25,802 - INFO - [33mPress CTRL+C to quit[0m
+2025-10-01 23:53:25,808 - INFO -  * Restarting with watchdog (windowsapi)
+2025-10-01 23:53:26,206 - WARNING -  * Debugger is active!
+2025-10-01 23:53:26,208 - INFO -  * Debugger PIN: 110-465-568
+2025-10-01 23:53:55,149 - INFO - 127.0.0.1 - - [01/Oct/2025 23:53:55] "POST /predict HTTP/1.1" 200 -
+2025-10-01 23:57:28,476 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://172.19.0.1:5000
+2025-10-01 23:57:28,476 - INFO - [33mPress CTRL+C to quit[0m
+2025-10-01 23:57:28,482 - INFO -  * Restarting with watchdog (windowsapi)
+2025-10-01 23:57:28,873 - WARNING -  * Debugger is active!
+2025-10-01 23:57:28,875 - INFO -  * Debugger PIN: 110-465-568
+2025-10-01 23:57:46,171 - INFO - 127.0.0.1 - - [01/Oct/2025 23:57:46] "POST /predict HTTP/1.1" 200 -
+2025-10-02 00:00:19,559 - INFO -  * Detected change in 'C:\\Users\\danil\\OneDrive\\Документы\\gazprombank_reviews_sravni\\dash.py', reloading
+2025-10-02 00:00:19,559 - INFO -  * Detected change in 'C:\\Users\\danil\\OneDrive\\Документы\\gazprombank_reviews_sravni\\dash.py', reloading
+2025-10-02 00:00:20,131 - INFO -  * Restarting with watchdog (windowsapi)
+2025-10-02 00:00:20,526 - WARNING -  * Debugger is active!
+2025-10-02 00:00:20,529 - INFO -  * Debugger PIN: 110-465-568
+2025-10-02 00:05:26,684 - INFO -  * Detected change in 'C:\\Users\\danil\\OneDrive\\Документы\\gazprombank_reviews_sravni\\api_reviews.py', reloading
+2025-10-02 00:05:26,685 - INFO -  * Detected change in 'C:\\Users\\danil\\OneDrive\\Документы\\gazprombank_reviews_sravni\\api_reviews.py', reloading
+2025-10-02 00:05:26,915 - INFO -  * Restarting with watchdog (windowsapi)
+2025-10-02 00:05:27,320 - WARNING -  * Debugger is active!
+2025-10-02 00:05:27,322 - INFO -  * Debugger PIN: 110-465-568
+2025-10-02 00:06:26,242 - INFO - 127.0.0.1 - - [02/Oct/2025 00:06:26] "POST /predict HTTP/1.1" 200 -
+2025-10-02 00:09:36,916 - INFO -  * Detected change in 'C:\\Users\\danil\\OneDrive\\Документы\\gazprombank_reviews_sravni\\api_reviews.py', reloading
+2025-10-02 00:09:36,916 - INFO -  * Detected change in 'C:\\Users\\danil\\OneDrive\\Документы\\gazprombank_reviews_sravni\\api_reviews.py', reloading
+2025-10-02 00:09:37,658 - INFO -  * Restarting with watchdog (windowsapi)
+2025-10-02 00:09:38,068 - WARNING -  * Debugger is active!
+2025-10-02 00:09:38,070 - INFO -  * Debugger PIN: 110-465-568
+2025-10-02 00:10:06,000 - INFO -  * Detected change in 'C:\\Users\\danil\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\streamlit\\env_util.py', reloading
+2025-10-02 00:10:06,000 - INFO -  * Detected change in 'C:\\Users\\danil\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\streamlit\\delta_generator.py', reloading
+2025-10-02 00:10:06,000 - INFO -  * Detected change in 'C:\\Users\\danil\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\streamlit\\elements\\heading.py', reloading
+2025-10-02 00:10:06,001 - INFO -  * Detected change in 'C:\\Users\\danil\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\streamlit\\runtime\\metrics_util.py', reloading
+2025-10-02 00:10:06,001 - INFO -  * Detected change in 'C:\\Users\\danil\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\streamlit\\runtime\\scriptrunner\\script_runner.py', reloading
+2025-10-02 00:10:06,001 - INFO -  * Detected change in 'C:\\Users\\danil\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\streamlit\\runtime\\scriptrunner\\exec_code.py', reloading
+2025-10-02 00:10:06,002 - INFO -  * Detected change in 'C:\\Users\\danil\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\threading.py', reloading
+2025-10-02 00:10:06,188 - INFO -  * Restarting with watchdog (windowsapi)
+2025-10-02 00:10:06,603 - WARNING -  * Debugger is active!
+2025-10-02 00:10:06,605 - INFO -  * Debugger PIN: 110-465-568
+2025-10-02 00:11:43,231 - INFO - 127.0.0.1 - - [02/Oct/2025 00:11:43] "POST /predict HTTP/1.1" 200 -
+2025-10-02 00:15:36,902 - INFO -  * Detected change in 'C:\\Users\\danil\\OneDrive\\Документы\\gazprombank_reviews_sravni\\generate_reviews.py', reloading
+2025-10-02 00:15:36,902 - INFO -  * Detected change in 'C:\\Users\\danil\\OneDrive\\Документы\\gazprombank_reviews_sravni\\old_files\\generate_reviews.py', reloading
+2025-10-02 00:15:36,902 - INFO -  * Detected change in 'C:\\Users\\danil\\OneDrive\\Документы\\gazprombank_reviews_sravni\\old_files\\generate_reviews.py', reloading
+2025-10-02 00:15:36,913 - INFO -  * Detected change in 'C:\\Users\\danil\\OneDrive\\Документы\\gazprombank_reviews_sravni\\process_dates.py', reloading
+2025-10-02 00:15:36,913 - INFO -  * Detected change in 'C:\\Users\\danil\\OneDrive\\Документы\\gazprombank_reviews_sravni\\old_files\\process_dates.py', reloading
+2025-10-02 00:15:36,913 - INFO -  * Detected change in 'C:\\Users\\danil\\OneDrive\\Документы\\gazprombank_reviews_sravni\\old_files\\process_dates.py', reloading
+2025-10-02 00:15:36,915 - INFO -  * Detected change in 'C:\\Users\\danil\\OneDrive\\Документы\\gazprombank_reviews_sravni\\SELENIUM.py', reloading
+2025-10-02 00:15:36,916 - INFO -  * Detected change in 'C:\\Users\\danil\\OneDrive\\Документы\\gazprombank_reviews_sravni\\old_files\\SELENIUM.py', reloading
+2025-10-02 00:15:36,916 - INFO -  * Detected change in 'C:\\Users\\danil\\OneDrive\\Документы\\gazprombank_reviews_sravni\\old_files\\SELENIUM.py', reloading
+2025-10-02 00:15:37,044 - INFO -  * Restarting with watchdog (windowsapi)
+2025-10-02 00:15:37,474 - WARNING -  * Debugger is active!
+2025-10-02 00:15:37,476 - INFO -  * Debugger PIN: 110-465-568
+2025-10-02 00:18:05,318 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://172.19.0.1:5000
+2025-10-02 00:18:05,318 - INFO - [33mPress CTRL+C to quit[0m
+2025-10-02 00:18:05,325 - INFO -  * Restarting with watchdog (windowsapi)
+2025-10-02 00:18:05,724 - WARNING -  * Debugger is active!
+2025-10-02 00:18:05,726 - INFO -  * Debugger PIN: 110-465-568
+2025-10-02 00:18:24,170 - INFO -  * Detected change in 'C:\\Users\\danil\\OneDrive\\Документы\\gazprombank_reviews_sravni\\generate_test.py', reloading
+2025-10-02 00:18:24,794 - INFO -  * Restarting with watchdog (windowsapi)
+2025-10-02 00:18:25,198 - WARNING -  * Debugger is active!
+2025-10-02 00:18:25,200 - INFO -  * Debugger PIN: 110-465-568
+2025-10-02 00:19:07,955 - INFO - 127.0.0.1 - - [02/Oct/2025 00:19:07] "POST /predict HTTP/1.1" 200 -
+2025-10-02 00:24:45,232 - INFO -  * Detected change in 'C:\\Users\\danil\\OneDrive\\Документы\\gazprombank_reviews_sravni\\app_errors.zip', reloading
+2025-10-02 00:24:45,664 - INFO -  * Restarting with watchdog (windowsapi)
+2025-10-02 00:24:46,086 - WARNING -  * Debugger is active!
+2025-10-02 00:24:46,088 - INFO -  * Debugger PIN: 110-465-568
+2025-10-02 00:25:09,651 - INFO -  * Detected change in 'C:\\Users\\danil\\OneDrive\\Документы\\gazprombank_reviews_sravni\\app_errors.zip', reloading
+2025-10-02 00:25:10,192 - INFO -  * Restarting with watchdog (windowsapi)
+2025-10-02 00:25:10,608 - WARNING -  * Debugger is active!
+2025-10-02 00:25:10,609 - INFO -  * Debugger PIN: 110-465-568
