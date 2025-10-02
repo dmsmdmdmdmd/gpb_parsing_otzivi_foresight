@@ -3,7 +3,8 @@ import pandas as pd
 import plotly.express as px
 import json
 import re
-from datetime import datetime
+from datetime import datetime, timedelta
+import random
 
 # Настройки страницы
 st.set_page_config(layout="wide", page_title="Аналитика отзывов о Газпромбанке")
@@ -273,9 +274,6 @@ def extract_topic_from_fragment(fragment):
     
     return 'Другое'  # Только в крайнем случае
 
-def random_review_date():
-    return '31.05.2025'  # Установлена фиксированная дата, если дата не указана
-
 def process_review(review):
     text = review.get('text', '')
     id = review.get('id', 0)
@@ -325,13 +323,16 @@ def process_review(review):
         else:
             rating = 3
     
+    # Дата: если в review есть 'date', использовать её, иначе 31.05.2025
+    date_str = review.get('date', '31.05.2025')
+    
     return {
         'id': id,
         'text': text,
         'topics': ', '.join(topics),
         'sentiments': ', '.join(sentiments),
         'product_category': ', '.join(topics),
-        'date': random_review_date(),
+        'date': date_str,
         'rating': rating,
         'author': review.get('author', 'Клиент банка'),
         'source': 'gold'
@@ -346,7 +347,8 @@ def load_data(uploaded_file):
                 predictions = [process_review(review) for review in data['data']]
                 df = pd.DataFrame(predictions)
                 if not df.empty:
-                    df['date'] = pd.to_datetime(df['date'], format='%d.%m.%Y')
+                    df['date'] = pd.to_datetime(df['date'], format='%d.%m.%Y', errors='coerce')
+                    df['date'] = df['date'].fillna(pd.to_datetime('31.05.2025', format='%d.%m.%Y'))
                     st.info(f"Загружено {len(df)} отзывов")
                     return df
         except Exception as e:
@@ -362,11 +364,10 @@ if uploaded_json:
     df = load_data(uploaded_json)
     if not df.empty:
         st.sidebar.header("Фильтры")
-        # Автоматический фильтр дат
-        start_date = datetime(2024, 1, 1).date()
-        end_date = datetime(2025, 5, 31).date()
-        st.sidebar.date_input("Начальная дата", value=start_date, min_value=start_date, max_value=end_date, disabled=True)
-        st.sidebar.date_input("Конечная дата", value=end_date, min_value=start_date, max_value=end_date, disabled=True)
+        min_date = df['date'].min().date()
+        max_date = df['date'].max().date()
+        start_date = st.sidebar.date_input("Начальная дата", min_date, min_value=min_date, max_value=max_date)
+        end_date = st.sidebar.date_input("Конечная дата", max_date, min_value=min_date, max_value=max_date)
 
         rating_filter = st.sidebar.slider("Рейтинг", min_value=1, max_value=5, value=(1, 5))
 
@@ -414,44 +415,27 @@ if uploaded_json:
             exploded_cat = filtered_df.copy()
             exploded_cat['cat_list'] = exploded_cat['product_category'].str.split(', ')
             exploded_cat = exploded_cat.explode('cat_list')
-            if not selected_categories:
-                # Агрегируем по основным категориям, если категории не выбраны
-                exploded_cat['cat_list'] = exploded_cat['cat_list'].apply(lambda x: SUBCAT_TO_CAT.get(x.strip(), x) if x != 'Другое' else x)
-                exploded_cat = exploded_cat[exploded_cat['cat_list'] != 'Другое']  # Удаляем 'Другое'
-                cat_counts = exploded_cat['cat_list'].value_counts()
-                fig_cat = px.bar(
-                    x=cat_counts.index,
-                    y=cat_counts.values,
-                    title="Категории и подкатегории",
-                    labels={'x': 'Тема', 'y': 'Количество отзывов'},
-                    color=cat_counts.index,
-                    color_discrete_map={
-                        'Повседневные финансы и платежи': '#FF9999',
-                        'Сбережения и накопления': '#66B2FF',
-                        'Кредитование': '#99FF99',
-                        'Инвестиции': '#FFCC99',
-                        'Страхование и защита': '#FF99CC',
-                        'Премиальные услуги': '#C2C2F0'
-                    }
-                )
-            else:
-                cat_counts = exploded_cat['cat_list'].value_counts()
-                fig_cat = px.bar(
-                    x=cat_counts.index,
-                    y=cat_counts.values,
-                    title="Категории и подкатегории",
-                    labels={'x': 'Тема', 'y': 'Количество отзывов'}
-                )
+            if len(selected_categories) != 1:
+                # Агрегируем по категориям, исключая 'Другое'
+                exploded_cat = exploded_cat[exploded_cat['cat_list'] != 'Другое']
+                exploded_cat['cat_list'] = exploded_cat['cat_list'].apply(lambda x: SUBCAT_TO_CAT.get(x.strip(), x.strip()))
+            cat_counts = exploded_cat['cat_list'].value_counts()
+            fig_cat = px.bar(
+                x=cat_counts.index,
+                y=cat_counts.values,
+                title="Категории и подкатегории",
+                labels={'x': 'Тема', 'y': 'Количество отзывов'}
+            )
             st.plotly_chart(fig_cat, use_container_width=True)
 
         # Динамика отзывов по датам (ломаная линия, группировка по темам)
         st.subheader("📅 Динамика отзывов по датам (по темам)")
         if not filtered_df.empty:
             exploded_df = filtered_df.assign(topic=filtered_df['topics'].str.split(', ')).explode('topic')
-            if not selected_categories:
-                # Агрегируем по основным категориям, если категории не выбраны
-                exploded_df['topic'] = exploded_df['topic'].apply(lambda x: SUBCAT_TO_CAT.get(x.strip(), x) if x != 'Другое' else x)
-                exploded_df = exploded_df[exploded_df['topic'] != 'Другое']  # Удаляем 'Другое'
+            if len(selected_categories) != 1:
+                # Агрегируем по категориям, исключая 'Другое'
+                exploded_df = exploded_df[exploded_df['topic'] != 'Другое']
+                exploded_df['topic'] = exploded_df['topic'].apply(lambda x: SUBCAT_TO_CAT.get(x.strip(), x.strip()))
             exploded_df['date_str'] = exploded_df['date'].dt.date.astype(str)
             count_by_date_topic = exploded_df.groupby(['date_str', 'topic']).size().reset_index(name='count')
             fig_date = px.line(
@@ -460,15 +444,7 @@ if uploaded_json:
                 y='count',
                 color='topic',
                 title="Динамика количества отзывов по датам и темам",
-                labels={'date_str': 'Дата', 'count': 'Количество отзывов', 'topic': 'Тема'},
-                color_discrete_map={
-                    'Повседневные финансы и платежи': '#FF9999',
-                    'Сбережения и накопления': '#66B2FF',
-                    'Кредитование': '#99FF99',
-                    'Инвестиции': '#FFCC99',
-                    'Страхование и защита': '#FF99CC',
-                    'Премиальные услуги': '#C2C2F0'
-                } if not selected_categories else None
+                labels={'date_str': 'Дата', 'count': 'Количество отзывов', 'topic': 'Тема'}
             )
             st.plotly_chart(fig_date, use_container_width=True)
     else:
