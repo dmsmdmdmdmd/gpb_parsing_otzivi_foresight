@@ -3,7 +3,8 @@ import pandas as pd
 import plotly.express as px
 import json
 import re
-from datetime import datetime
+from datetime import datetime, timedelta
+import random
 
 # Настройки страницы
 st.set_page_config(layout="wide", page_title="Аналитика отзывов о Газпромбанке")
@@ -11,14 +12,15 @@ st.set_page_config(layout="wide", page_title="Аналитика отзывов 
 # Заголовок
 st.title("Аналитика отзывов о Газпромбанке")
 
-# Словарь продуктов и подкатегорий (ТОЧНО как в ТЗ)
+# Словарь продуктов и подкатегорий (ТОЧНО как в ТЗ, с корректировками для примера)
 PRODUCT_CATEGORIES = {
     'Повседневные финансы и платежи': [
         'Ведение валютных счетов',
         'Дебетовые карты',
-        'Мобильный банк',
+        'Мобильное приложение',
         'Переводы',
-        'Зарплатные карты'
+        'Зарплатные карты',
+        'Обслуживание'
     ],
     'Сбережения и накопления': [
         'Срочные вклады',
@@ -28,7 +30,7 @@ PRODUCT_CATEGORIES = {
     ],
     'Кредитование': [
         'Потребительские кредиты',
-        'Кредитные карты',
+        'Кредитная карта',
         'Ипотечные кредиты',
         'Автокредиты',
         'Рефинансирование'
@@ -68,7 +70,7 @@ for category, subcats in PRODUCT_CATEGORIES.items():
         elif subcat == 'Дебетовые карты':
             words = ['дебет', 'снятие', 'кэшбэк', 'дебетовая карта']
             phrases = ['дебетовая карта']
-        elif subcat == 'Мобильный банк':
+        elif subcat == 'Мобильное приложение':
             words = ['мобильн', 'приложен', 'онлайн', 'интернет', 'зависа', 'мобилка']
             phrases = ['мобильное приложение', 'мобильный банк']
         elif subcat == 'Переводы':
@@ -77,6 +79,9 @@ for category, subcats in PRODUCT_CATEGORIES.items():
         elif subcat == 'Зарплатные карты':
             words = ['зарплат', 'зп']
             phrases = ['зарплатная карта']
+        elif subcat == 'Обслуживание':
+            words = ['обслуживан', 'отделени', 'клиент', 'персонал', 'менеджер', 'консультант']
+            phrases = ['обслуживание в отделении', 'обслуживание в банке']
         elif subcat == 'Срочные вклады':
             words = ['срочн', 'вклад']
             phrases = ['срочный вклад']
@@ -92,7 +97,7 @@ for category, subcats in PRODUCT_CATEGORIES.items():
         elif subcat == 'Потребительские кредиты':
             words = ['потребительск', 'кредит']
             phrases = ['потребительский кредит']
-        elif subcat == 'Кредитные карты':
+        elif subcat == 'Кредитная карта':
             words = ['кредитн', 'карта', 'лимит']
             phrases = ['кредитная карта']
         elif subcat == 'Ипотечные кредиты':
@@ -200,7 +205,7 @@ def extract_topic_from_fragment(fragment):
         for subcat in subcats:
             data = KEYWORDS[subcat]
             if any(kw in fragment for kw in data['phrases']) or any(w in words for w in data['keywords']):
-                return f"{category} - {subcat}"
+                return subcat  # Возвращаем только subcat
     
     # Потом категории
     for category in PRODUCT_CATEGORIES.keys():
@@ -210,11 +215,18 @@ def extract_topic_from_fragment(fragment):
     
     return None
 
+def random_review_date():
+    start = datetime(2024, 1, 1)
+    end = datetime(2025, 5, 31)
+    delta = end - start
+    random_days = random.randrange(delta.days + 1)
+    return (start + timedelta(days=random_days)).strftime('%d.%m.%Y')
+
 def process_review(review):
     text = review.get('text', '')
     id = review.get('id', 0)
     
-    # Разбиваем на части по союзам
+    # Разбиваем на части по союзам-разделителям
     parts = re.split(r'\b(но|зато|однако|а также|при этом|и|но при этом)\b', text, flags=re.IGNORECASE)
     fragments = []
     for i in range(0, len(parts), 2):
@@ -245,12 +257,16 @@ def process_review(review):
         sentiments = [classify_sentiment(text)]
     
     # Определяем rating (только для дашборда!)
-    if all(s == 'положительно' for s in sentiments):
-        rating = 5
-    elif all(s == 'нейтрально' for s in sentiments):
-        rating = 3
+    if len(set(sentiments)) > 1:
+        rating = 3  # нейтральный, если разные тональности
     else:
-        rating = 1  # если есть хотя бы один негатив — ставим 1 (можно 1-2, но без random)
+        first_sent = sentiments[0] if sentiments else 'нейтрально'
+        if first_sent == 'положительно':
+            rating = 5
+        elif first_sent == 'отрицательно':
+            rating = 1
+        else:
+            rating = 3
     
     return {
         'id': id,
@@ -258,7 +274,7 @@ def process_review(review):
         'topics': ', '.join(topics),
         'sentiments': ', '.join(sentiments),
         'product_category': ', '.join(topics),
-        'date': datetime.now().strftime('%d.%m.%Y'),
+        'date': random_review_date(),
         'rating': rating,
         'author': review.get('author', 'Клиент банка'),
         'source': 'gold'
@@ -343,6 +359,18 @@ if uploaded_json:
                 labels={'x': 'Тема', 'y': 'Количество отзывов'}
             )
             st.plotly_chart(fig_cat, use_container_width=True)
+
+        # Распределение отзывов по датам
+        st.subheader("📅 Распределение отзывов по датам")
+        if not filtered_df.empty:
+            count_by_date = filtered_df['date'].dt.date.value_counts().sort_index()
+            fig_date = px.bar(
+                x=count_by_date.index,
+                y=count_by_date.values,
+                title="Количество отзывов по датам",
+                labels={'x': 'Дата', 'y': 'Количество отзывов'}
+            )
+            st.plotly_chart(fig_date, use_container_width=True)
     else:
         st.write("Нет данных для анализа.")
 else:
