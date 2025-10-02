@@ -153,15 +153,7 @@ def classify_rating(sentiment):
         return random.randint(1, 2)
 
 def classify_topics(text):
-    text = text.lower()
-    categories = set()
-    words = set(re.findall(r'\w+', text))
-    for category, data in PRODUCT_CATEGORIES_TOPICS.items():
-        keywords = set(data['keywords'])
-        phrases = set(data['phrases'])
-        if any(word in keywords for word in words) or any(phrase in text for phrase in phrases):
-            categories.add(category)
-    return list(categories)
+    return text.split()[:5]  # Первые 5 слов как заголовок
 
 def classify_product_category(text, topics):
     text = text.lower()
@@ -180,9 +172,9 @@ def classify_product_category(text, topics):
             if subcategories:
                 for subcat in subcategories:
                     categories.add(f"{category} - {subcat}")
-            else:
+            elif not categories:  # Добавляем категорию только если нет подкатегорий
                 categories.add(category)
-    return list(categories) if categories else []
+    return list(categories)
 
 def process_review(review):
     text = review.get('text', '')
@@ -196,14 +188,12 @@ def process_review(review):
         for part in parts:
             part_topics = classify_topics(part)
             sentiment = classify_sentiment(part)
-            for topic in part_topics:
-                if topic not in topics:
-                    topics.append(topic)
-                    sentiments.append(sentiment)
+            if part_topics and sentiment:
+                topics.append(' '.join(part_topics))
+                sentiments.append(sentiment)
     else:
-        topics = classify_topics(text)
-        sentiment = classify_sentiment(text)
-        sentiments = [sentiment] * len(topics)
+        topics = [classify_topics(text)]
+        sentiments = [classify_sentiment(text)]
     
     product_categories = classify_product_category(text, topics)
     
