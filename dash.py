@@ -324,8 +324,9 @@ if not df.empty:
     st.sidebar.header("Фильтры")
     min_date = df['date'].min().date() if 'date' in df and pd.notna(df['date'].min()) else datetime(2024, 1, 1).date()
     max_date = df['date'].max().date() if 'date' in df and pd.notna(df['date'].max()) else datetime(2025, 5, 31).date()
-    start_date = st.sidebar.date_input("Начальная дата", min_date, min_value=min_date, max_value=max_date)
-    end_date = st.sidebar.date_input("Конечная дата", max_date, min_value=min_date, max_value=max_value)
+    start_date = st.sidebar.date_input("Начальная дата", min_date, min_value=datetime(2024, 1, 1), max_value=datetime(2025, 5, 31))
+    end_date = st.sidebar.date_input("Конечная дата", max_date if max_date <= datetime(2025, 5, 31) else datetime(2025, 5, 31), 
+                                    min_value=datetime(2024, 1, 1), max_value=datetime(2025, 5, 31))
 
     source_options = ['Все'] + sorted(df['source'].dropna().unique().tolist()) if 'source' in df.columns else ['Все']
     source_filter = st.sidebar.multiselect("Источник", options=source_options, default=['Все'])
@@ -349,9 +350,10 @@ if not df.empty:
     rating_filter = st.sidebar.slider("Рейтинг", min_value=1, max_value=5, value=(1, 5), step=0.5) if 'rating' in df.columns else (1, 5)
     keyword_filter = st.sidebar.text_input("Ключевое слово в тексте", "")
 
-    # Фильтрация данных с проверкой наличия колонок
+    # Фильтрация данных с проверкой наличия колонок и диапазона дат
     mask = pd.Series(True, index=df.index)
     if 'date' in df.columns:
+        mask &= (df['date'].dt.date >= datetime(2024, 1, 1)) & (df['date'].dt.date <= datetime(2025, 5, 31))
         mask &= (df['date'].dt.date >= start_date) & (df['date'].dt.date <= end_date)
     if 'rating' in df.columns:
         mask &= df['rating'].between(*rating_filter)
@@ -377,7 +379,6 @@ if not df.empty:
     # График распределения тональности
     st.subheader("😊 Распределение тональности")
     if 'sentiments' in filtered_df and not filtered_df['sentiments'].isna().all():
-        # Разделяем sentiments на списки для подсчёта
         def count_sentiments(s):
             return pd.Series(s.split(', ')).value_counts()
         sentiment_counts = filtered_df['sentiments'].apply(count_sentiments).sum().sort_index()
