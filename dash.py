@@ -133,17 +133,11 @@ def classify_sentiment(text):
             
             sentiment_score += base_score
     
-    # Определяем рейтинг с промежуточными значениями
-    if sentiment_score > 1.5:
-        return 'positive', 5
-    elif sentiment_score > 0.5:
-        return 'positive', 4
-    elif sentiment_score > -0.5:
-        return 'neutral', 3
-    elif sentiment_score > -1.5:
-        return 'negative', 2
-    else:
-        return 'negative', 1
+    if sentiment_score > 1:
+        return 'positive'
+    elif sentiment_score < -1:
+        return 'negative'
+    return 'neutral'
 
 def classify_topics(text):
     text = text.lower()
@@ -194,30 +188,27 @@ def process_review(review):
     
     topics = []
     sentiments = []
-    ratings = []
     
     if parts:
         for part in parts:
             part_topics = classify_topics(part)
-            sentiment, rating = classify_sentiment(part)
+            sentiment = classify_sentiment(part)
             for topic in part_topics:
                 if topic not in topics:
                     topics.append(topic)
                     sentiments.append(sentiment)
-                    ratings.append(rating)
     else:
         topics = classify_topics(text)
-        sentiment, rating = classify_sentiment(text)
+        sentiment = classify_sentiment(text)
         sentiments = [sentiment] * len(topics)
-        ratings = [rating] * len(topics)
     
     if len(topics) > 1 and 'Другое' in topics:
         idx = topics.index('Другое')
         topics.pop(idx)
         sentiments.pop(idx)
-        ratings.pop(idx)
     
     current_date = datetime.now().strftime('%d.%m.%Y')
+    rating_map = {'negative': 1, 'neutral': 3, 'positive': 5}
     source = 'gold'
     author = review.get('author', 'Клиент банка')
     title = ' '.join(re.findall(r'\w+', text)[:5]) if text else 'Без заголовка'
@@ -232,9 +223,10 @@ def process_review(review):
         return {'id': id, 'topics': topics, 'sentiments': sentiments, 'error': f"Ошибка при чтении файла: {str(e)}"}
     
     topics_str = ', '.join(topics)
-    sentiments_str = ', '.join(sentiments)
+    sentiments_str = ', '.join(sentiments) if len(sentiments) > 1 else sentiments[0] if sentiments else ''
     product_category_str = ', '.join(product_categories)
-    avg_rating = sum(ratings) / len(ratings) if ratings else 3
+    
+    avg_rating = sum(rating_map.get(s, 3) for s in sentiments) / len(sentiments) if sentiments else 3
     
     try:
         new_review = pd.DataFrame({
@@ -255,7 +247,7 @@ def process_review(review):
         logging.error(f"Error writing to CSV file: {str(e)}")
         return {'id': id, 'topics': topics, 'sentiments': sentiments, 'error': f"Ошибка при записи в файл: {str(e)}"}
     
-    return {'id': id, 'topics': topics, 'sentiments': sentiments}
+    return {'id': id, 'topics': topics, 'sentiments': sentiments, 'product_category': product_categories}
 
 @st.cache_data
 def load_data(uploaded_file, file_type):
@@ -270,14 +262,15 @@ def load_data(uploaded_file, file_type):
                     result = process_review(review)
                     if 'error' not in result:
                         predictions.append(result)
-                # Создаём DataFrame без разбиения на строки
+                # Создаём DataFrame с полными данными
                 rows = []
                 for pred, orig in zip(predictions, data['data']):
                     row = {
                         'id': pred['id'],
                         'text': orig.get('text', ''),
                         'topics': ', '.join(pred['topics']),
-                        'sentiments': ', '.join(pred['sentiments']),
+                        'sentiments': ', '.join(pred['sentiments']) if len(pred['sentiments']) > 1 else pred['sentiments'][0] if pred['sentiments'] else '',
+                        'product_category': ', '.join(pred['product_category']),
                         'date': orig.get('date', datetime.now().strftime('%d.%m.%Y')),
                         'rating': orig.get('rating', 3),
                         'author': orig.get('author', 'Клиент банка'),
@@ -300,7 +293,7 @@ def load_data(uploaded_file, file_type):
             if 'product_category' not in df.columns:
                 df['product_category'] = df['text'].apply(lambda x: ', '.join(classify_product_category(x, classify_topics(x))))
             if 'sentiments' not in df.columns:
-                df['sentiments'] = df['text'].apply(lambda x: classify_sentiment(x)[0])  # Берем только sentiment
+                df['sentiments'] = df['text'].apply(classify_sentiment)
             if 'topics' not in df.columns:
                 df['topics'] = df['text'].apply(lambda x: ', '.join(classify_topics(x)))
 
@@ -335,12 +328,12 @@ if not df.empty:
     sentiment_options = ['Все'] + ['positive', 'negative', 'neutral']
     sentiment_filter = st.sidebar.multiselect("Тональность", options=sentiment_options, default=['Все'])
 
-    main_product_options = ['Все'] + sorted([cat for cat in df['product_category'].unique() if ' - ' not in str(cat)])
+    main_product_options = ['Все'] + sorted([cat for cat in df['product_category'].str.split(', ').explode().unique() if ' - ' not in str(cat)])
     product_filter = st.sidebar.multiselect("Категория продукта", options=main_product_options, default=['Все'])
 
     subcategories_filter = []
     if 'Повседневные финансы и платежи' in product_filter and len(product_filter) == 1:
-        subcategories = sorted([cat for cat in df['product_category'].unique() if cat.startswith('Повседневные финансы и платежи - ')])
+        subcategories = sorted([cat for cat in df['product_category'].str.split(', ').explode().unique() if cat.startswith('Повседневные финансы и платежи - ')])
         subcategories_filter = st.sidebar.multiselect("Подкатегория продукта", options=subcategories, default=subcategories)
 
     if 'Все' in product_filter and len(product_filter) > 1:
@@ -362,13 +355,13 @@ if not df.empty:
     if 'sentiments' in df.columns and sentiment_filter and 'Все' not in sentiment_filter:
         mask &= df['sentiments'].str.contains('|'.join(sentiment_filter), case=False, na=False)
     if product_filter and 'Все' not in product_filter:
-        mask &= df['product_category'].str.contains('|'.join(product_filter + subcategories_filter), case=False, na=False)
+        mask &= df['product_category'].str.split(', ').apply(lambda x: any(cat in x for cat in product_filter + subcategories_filter))
     if 'text' in df.columns and keyword_filter:
         mask &= df['text'].str.contains(keyword_filter, case=False, na=False, regex=True)
 
     filtered_df = df[mask].copy()
 
-    st.info(f"После фильтрации: {len(filtered_df)} строк. Уникальные продукты в фильтре: {sorted(filtered_df['product_category'].unique())}")
+    st.info(f"После фильтрации: {len(filtered_df)} строк. Уникальные продукты в фильтре: {sorted(filtered_df['product_category'].str.split(', ').explode().unique())}")
 
     # Статистика
     st.header("📊 Общая статистика")
@@ -379,7 +372,7 @@ if not df.empty:
     # График распределения тональности
     st.subheader("😊 Распределение тональности")
     if 'sentiments' in filtered_df and not filtered_df['sentiments'].isna().all():
-        sentiment_counts = filtered_df.groupby(group_cols + ['sentiments']).size().groupby('sentiments').count()
+        sentiment_counts = filtered_df['sentiments'].str.split(', ').explode().value_counts()
         fig_sentiment = px.pie(names=sentiment_counts.index, values=sentiment_counts.values, title="Тональность отзывов",
                               color=sentiment_counts.index,
                               color_discrete_map={'positive': '#90EE90', 'negative': '#FF6347', 'neutral': '#D3D3D3'},
@@ -392,7 +385,9 @@ if not df.empty:
     st.subheader("📈 Динамика по продуктам по месяцам")
     if 'date' in filtered_df and 'product_category' in filtered_df and not filtered_df.empty:
         filtered_df['month'] = filtered_df['date'].dt.to_period('M').astype(str)
-        product_monthly = filtered_df.groupby(['month', 'product_category']).size().reset_index(name='count')
+        product_monthly = filtered_df.copy()
+        product_monthly['product_category'] = product_monthly['product_category'].str.split(', ')
+        product_monthly = product_monthly.explode('product_category').groupby(['month', 'product_category']).size().reset_index(name='count')
         if not product_monthly.empty:
             if 'Повседневные финансы и платежи' in product_filter and len(product_filter) == 1:
                 product_monthly = product_monthly[product_monthly['product_category'].isin(['Повседневные финансы и платежи'] + subcategories_filter)]
@@ -412,7 +407,7 @@ if not df.empty:
     # Распределение по категориям продуктов
     st.subheader("📋 Распределение по категориям продуктов")
     if 'product_category' in filtered_df and not filtered_df['product_category'].isna().all():
-        product_counts = filtered_df['product_category'].value_counts()
+        product_counts = filtered_df['product_category'].str.split(', ').explode().value_counts()
         if not product_counts.empty:
             if not product_filter or ('Все' in product_filter and len(product_filter) == 1):
                 product_counts_filtered = product_counts[~product_counts.index.str.contains(' - ', na=False)]
