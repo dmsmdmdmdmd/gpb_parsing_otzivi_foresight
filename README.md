@@ -4,7 +4,9 @@
 Как запустить? (На локальной машине)
 
 1.В нужной директории (cd + путь до директории) в powershell пишем: py app.py <br>
+
 2.В powershell (так же в нашей директории) вставляем следующую команду:
+
 ```
 curl.exe -s -X POST -H "Content-Type: application/json" -d "@C:\...\test_250_reviews.json" http://localhost:5000/predict
 ```
@@ -18,4 +20,7 @@ curl.exe -s -X POST -H "Content-Type: application/json" -d "@C:\...\test_250_rev
  
 </h3>Открывается красивый и понятный дашборд с полным анализом.</h3>
 
-*[По ссылке](https://gpbparsingotziviforesight-wgf4rxgq65hm6pbuqb4cad.streamlit.app/)*.
+Запускаем удаленно.
+Переходим *[По ссылке](https://gpbparsingotziviforesight-wgf4rxgq65hm6pbuqb4cad.streamlit.app/)*. <br>
+Загружаем файл формата .json с отзывами, <br>
+Наслаждаемся
