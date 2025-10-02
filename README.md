@@ -198,6 +198,9 @@ It opens a beautiful and clear dashboard with full analysis. <br>
 
 **<h3>Everything is simple</h3>** <br>
 <br> 1.Moving on *[By the link](https://gpbparsingotziviforesight-wgf4rxgq65hm6pbuqb4cad.streamlit.app/)*. <br>
+2.Download the format file.json with reviews, <br>
+3.Enjoy <br>
+<br>
 
 <h1>dash.py</h1>
 <br>
@@ -343,6 +346,3 @@ the ability to filter by parameters.
 
 *datetime*
  — working with dates
-2.Download the format file.json with reviews, <br>
-3.Enjoy <br>
-<br>
