@@ -5,10 +5,13 @@ import json
 import re
 from datetime import datetime
 
+# Настройки страницы
 st.set_page_config(layout="wide", page_title="Аналитика отзывов о Газпромбанке")
+
+# Заголовок
 st.title("Аналитика отзывов о Газпромбанке")
 
-# === ТОЧНЫЙ СПИСОК ПОДКАТЕГОРИЙ ИЗ ТЗ ===
+# Словарь продуктов и подкатегорий (ТОЧНО как в ТЗ)
 PRODUCT_CATEGORIES = {
     'Повседневные финансы и платежи': [
         'Ведение валютных счетов',
@@ -49,97 +52,102 @@ PRODUCT_CATEGORIES = {
     ]
 }
 
-# Собираем все темы в формате "Категория — Подкатегория"
-ALL_TOPICS = []
-for cat, subcats in PRODUCT_CATEGORIES.items():
-    for sub in subcats:
-        ALL_TOPICS.append(f"{cat} — {sub}")
+# Собираем все подкатегории и категории
+ALL_CATEGORIES = list(PRODUCT_CATEGORIES.keys())
+ALL_SUBCATEGORIES = [sub for subs in PRODUCT_CATEGORIES.values() for sub in subs]
 
-# Ключевые слова для каждой подкатегории
+# Словарь ключевых слов (расширенный и точный)
 KEYWORDS = {}
 
-for cat, subcats in PRODUCT_CATEGORIES.items():
-    for sub in subcats:
-        full_name = f"{cat} — {sub}"
-        if sub == 'Ведение валютных счетов':
+# Заполняем KEYWORDS
+for category, subcats in PRODUCT_CATEGORIES.items():
+    for subcat in subcats:
+        if subcat == 'Ведение валютных счетов':
             words = ['валют', 'счет', 'конвертац']
             phrases = ['валютный счет']
-        elif sub == 'Дебетовые карты':
-            words = ['дебет', 'снятие', 'кэшбэк']
+        elif subcat == 'Дебетовые карты':
+            words = ['дебет', 'снятие', 'кэшбэк', 'дебетовая карта']
             phrases = ['дебетовая карта']
-        elif sub == 'Мобильный банк':
-            words = ['мобильн', 'приложен', 'онлайн', 'зависа', 'мобилка']
+        elif subcat == 'Мобильный банк':
+            words = ['мобильн', 'приложен', 'онлайн', 'интернет', 'зависа', 'мобилка']
             phrases = ['мобильное приложение', 'мобильный банк']
-        elif sub == 'Переводы':
+        elif subcat == 'Переводы':
             words = ['перевод', 'средств', 'перевести']
             phrases = ['перевод денег']
-        elif sub == 'Зарплатные карты':
+        elif subcat == 'Зарплатные карты':
             words = ['зарплат', 'зп']
             phrases = ['зарплатная карта']
-        elif sub == 'Срочные вклады':
+        elif subcat == 'Срочные вклады':
             words = ['срочн', 'вклад']
             phrases = ['срочный вклад']
-        elif sub == 'Сберегательные счета':
+        elif subcat == 'Сберегательные счета':
             words = ['сберегательн', 'счет']
             phrases = ['сберегательный счет']
-        elif sub == 'Обезличенные металлические счета':
+        elif subcat == 'Обезличенные металлические счета':
             words = ['металл', 'обезличен', 'омс']
             phrases = ['обезличенный металлический счет']
-        elif sub == 'Накопительные счета':
+        elif subcat == 'Накопительные счета':
             words = ['накопит', 'счет']
             phrases = ['накопительный счет']
-        elif sub == 'Потребительские кредиты':
+        elif subcat == 'Потребительские кредиты':
             words = ['потребительск', 'кредит']
             phrases = ['потребительский кредит']
-        elif sub == 'Кредитные карты':
+        elif subcat == 'Кредитные карты':
             words = ['кредитн', 'карта', 'лимит']
             phrases = ['кредитная карта']
-        elif sub == 'Ипотечные кредиты':
+        elif subcat == 'Ипотечные кредиты':
             words = ['ипотек', 'ипотечн']
             phrases = ['ипотечный кредит']
-        elif sub == 'Автокредиты':
+        elif subcat == 'Автокредиты':
             words = ['автокредит', 'авто кредит']
             phrases = ['автомобильный кредит']
-        elif sub == 'Рефинансирование':
+        elif subcat == 'Рефинансирование':
             words = ['рефинансирован']
             phrases = ['рефинансирование кредита']
-        elif sub == 'Брокерский счет':
+        elif subcat == 'Брокерский счет':
             words = ['брокер', 'счет']
             phrases = ['брокерский счет']
-        elif sub == 'ИИС (Индивидуальный инвестиционный счет)':
+        elif subcat == 'ИИС (Индивидуальный инвестиционный счет)':
             words = ['иис', 'инвест', 'счет']
             phrases = ['индивидуальный инвестиционный счет']
-        elif sub == 'ПИФы (Паевые инвестиционные фонды)':
+        elif subcat == 'ПИФы (Паевые инвестиционные фонды)':
             words = ['пиф', 'паев', 'фонд']
             phrases = ['паевой фонд']
-        elif sub == 'Структурные продукты':
+        elif subcat == 'Структурные продукты':
             words = ['структурн']
             phrases = ['структурный продукт']
-        elif sub == 'Страхование путешествий':
+        elif subcat == 'Страхование путешествий':
             words = ['путешестви', 'туризм', 'поездк']
             phrases = ['страхование путешествий']
-        elif sub == 'Страхование имущества':
+        elif subcat == 'Страхование имущества':
             words = ['имуществ', 'дом', 'квартир']
             phrases = ['страхование имущества']
-        elif sub == 'Страхование от несчастных случаев и болезней':
+        elif subcat == 'Страхование от несчастных случаев и болезней':
             words = ['несчастн', 'болезн', 'травм', 'инвалид']
             phrases = ['страхование от несчастных случаев']
-        elif sub == 'Страхование при оформлении кредитов':
+        elif subcat == 'Страхование при оформлении кредитов':
             words = ['кредит', 'страхован']
             phrases = ['страхование при оформлении кредита']
-        elif sub == 'Приват банкинг':
+        elif subcat == 'Приват банкинг':
             words = ['приват', 'премиум', 'vip']
             phrases = ['приват-банкинг']
-        elif sub == 'Депозитарные ячейки':
+        elif subcat == 'Депозитарные ячейки':
             words = ['ячейк', 'сейф']
             phrases = ['депозитарные ячейки']
-        elif sub == 'Услуги по консультированию и планированию':
+        elif subcat == 'Услуги по консультированию и планированию':
             words = ['консультирован', 'планирован', 'финансов', 'совет']
             phrases = ['услуги по консультированию']
         else:
             words = []
             phrases = []
-        KEYWORDS[full_name] = {'keywords': words, 'phrases': phrases}
+
+        KEYWORDS[subcat] = {'keywords': words, 'phrases': phrases}
+
+    # Добавляем категорию как fallback (без подкатегорий)
+    cat_keywords = []
+    for sub in subcats:
+        cat_keywords.extend(KEYWORDS[sub]['keywords'])
+    KEYWORDS[category] = {'keywords': list(set(cat_keywords)), 'phrases': []}
 
 # Лексикон тональности
 SENTIMENT_LEXICON = {
@@ -182,69 +190,74 @@ def classify_sentiment(text):
     else:
         return 'нейтрально'
 
-def split_into_fragments(text):
-    # Разделяем по союзам, сохраняя контекст
-    parts = re.split(r'\b(но|зато|однако|при этом|а также|и|но при этом|зато при этом)\b', text, flags=re.IGNORECASE)
-    fragments = []
-    current = ""
-    for i, part in enumerate(parts):
-        if i % 2 == 0:
-            current = part.strip()
-        else:
-            if current:
-                fragments.append(current)
-            current = part.strip() + " " + (parts[i+1].strip() if i+1 < len(parts) else "")
-    if current:
-        fragments.append(current)
-    return fragments if fragments else [text]
+def extract_topic_from_fragment(fragment):
+    """Возвращает ТОЛЬКО одну тему: сначала подкатегорию, потом категорию"""
+    fragment = fragment.lower()
+    words = set(re.findall(r'\w+', fragment))
+    
+    # Сначала проверяем подкатегории
+    for category, subcats in PRODUCT_CATEGORIES.items():
+        for subcat in subcats:
+            data = KEYWORDS[subcat]
+            if any(kw in fragment for kw in data['phrases']) or any(w in words for w in data['keywords']):
+                return f"{category} - {subcat}"
+    
+    # Потом категории
+    for category in PRODUCT_CATEGORIES.keys():
+        data = KEYWORDS[category]
+        if any(w in words for w in data['keywords']):
+            return category
+    
+    return None
 
 def process_review(review):
     text = review.get('text', '')
     id = review.get('id', 0)
     
-    # Находим все темы в отзыве
-    found_topics = []
-    for topic, data in KEYWORDS.items():
-        if any(phrase in text.lower() for phrase in data['phrases']) or \
-           any(kw in text.lower() for kw in data['keywords']):
-            found_topics.append(topic)
+    # Разбиваем на части по союзам
+    parts = re.split(r'\b(но|зато|однако|а также|при этом|и|но при этом)\b', text, flags=re.IGNORECASE)
+    fragments = []
+    for i in range(0, len(parts), 2):
+        frag = parts[i].strip()
+        if i + 1 < len(parts):
+            frag += ' ' + parts[i+1].strip()
+        if frag:
+            fragments.append(frag.strip())
     
-    if not found_topics:
-        found_topics = ["Другое"]
+    if not fragments:
+        fragments = [text]
     
-    # Разбиваем на фрагменты
-    fragments = split_into_fragments(text)
-    
-    # Для каждой темы находим ближайший фрагмент и определяем тональность
+    topics = []
     sentiments = []
-    for topic in found_topics:
-        if topic == "Другое":
-            sent = classify_sentiment(text)
-        else:
-            # Ищем фрагмент, содержащий ключевые слова темы
-            sent = 'нейтрально'
-            data = KEYWORDS[topic]
-            for frag in fragments:
-                if any(phrase in frag.lower() for phrase in data['phrases']) or \
-                   any(kw in frag.lower() for kw in data['keywords']):
-                    sent = classify_sentiment(frag)
-                    break
-        sentiments.append(sent)
     
-    # Rating для дашборда (не возвращается в API)
+    for frag in fragments:
+        topic = extract_topic_from_fragment(frag)
+        if topic is None:
+            continue  # пропускаем, если не относится к темам
+        sentiment = classify_sentiment(frag)
+        topics.append(topic)
+        sentiments.append(sentiment)
+    
+    # Если ни одна тема не найдена — ставим "Другое"
+    if not topics:
+        topics = ["Другое"]
+        # Для "Другое" определяем тональность по всему тексту
+        sentiments = [classify_sentiment(text)]
+    
+    # Определяем rating (только для дашборда!)
     if all(s == 'положительно' for s in sentiments):
         rating = 5
     elif all(s == 'нейтрально' for s in sentiments):
         rating = 3
     else:
-        rating = 1
+        rating = 1  # если есть хотя бы один негатив — ставим 1 (можно 1-2, но без random)
     
     return {
         'id': id,
         'text': text,
-        'topics': ', '.join(found_topics),
+        'topics': ', '.join(topics),
         'sentiments': ', '.join(sentiments),
-        'product_category': ', '.join(found_topics),
+        'product_category': ', '.join(topics),
         'date': datetime.now().strftime('%d.%m.%Y'),
         'rating': rating,
         'author': review.get('author', 'Клиент банка'),
@@ -268,7 +281,7 @@ def load_data(uploaded_file):
     st.error("Неверный формат JSON. Ожидается {'data': [{'id': 1, 'text': '...'}]}")
     return pd.DataFrame()
 
-# === Streamlit UI ===
+# Сайдбар
 st.sidebar.header("Загрузка и фильтры")
 uploaded_json = st.sidebar.file_uploader("Загрузите JSON с отзывами", type=['json'])
 
@@ -280,30 +293,19 @@ if uploaded_json:
         max_date = df['date'].max().date()
         start_date = st.sidebar.date_input("Начальная дата", min_date, min_value=min_date, max_value=max_date)
         end_date = st.sidebar.date_input("Конечная дата", max_date, min_value=min_date, max_value=max_date)
+
         rating_filter = st.sidebar.slider("Рейтинг", min_value=1, max_value=5, value=(1, 5))
-        
-        # Фильтры по категориям и подкатегориям
-        selected_categories = st.sidebar.multiselect(
-            "Категории",
-            options=list(PRODUCT_CATEGORIES.keys()),
-            default=[]
-        )
-        all_subcats = [sub for subs in PRODUCT_CATEGORIES.values() for sub in subs]
-        selected_subcategories = st.sidebar.multiselect(
-            "Подкатегории",
-            options=all_subcats,
-            default=[]
-        )
+
+        selected_categories = st.sidebar.multiselect("Категории", options=ALL_CATEGORIES, default=[])
+        selected_subcategories = st.sidebar.multiselect("Подкатегории", options=ALL_SUBCATEGORIES, default=[])
 
         # Фильтрация
         mask = (df['date'].dt.date >= start_date) & (df['date'].dt.date <= end_date) & (df['rating'].between(*rating_filter))
         
         if selected_categories:
-            cat_pattern = '|'.join([re.escape(cat) for cat in selected_categories])
-            mask &= df['product_category'].str.contains(cat_pattern, case=False, na=False)
+            mask &= df['product_category'].str.contains('|'.join(selected_categories), case=False, na=False)
         if selected_subcategories:
-            subcat_pattern = '|'.join([re.escape(sub) for sub in selected_subcategories])
-            mask &= df['product_category'].str.contains(subcat_pattern, case=False, na=False)
+            mask &= df['product_category'].str.contains('|'.join(selected_subcategories), case=False, na=False)
 
         filtered_df = df[mask].copy()
 
@@ -313,28 +315,34 @@ if uploaded_json:
 
         # Тональность
         st.subheader("😊 Распределение тональности")
-        exploded = filtered_df.copy()
-        exploded['sent_list'] = exploded['sentiments'].str.split(', ')
-        exploded = exploded.explode('sent_list')
-        sent_counts = exploded['sent_list'].value_counts()
-        fig = px.pie(
-            names=sent_counts.index,
-            values=sent_counts.values,
-            title="Тональность по всем темам",
-            color=sent_counts.index,
-            color_discrete_map={'положительно': '#90EE90', 'отрицательно': '#FF6347', 'нейтрально': '#D3D3D3'}
-        )
-        st.plotly_chart(fig, use_container_width=True)
+        if not filtered_df.empty:
+            exploded = filtered_df.copy()
+            exploded['sentiments_list'] = exploded['sentiments'].str.split(', ')
+            exploded = exploded.explode('sentiments_list')
+            sentiment_counts = exploded['sentiments_list'].value_counts()
+            fig_sentiment = px.pie(
+                names=sentiment_counts.index,
+                values=sentiment_counts.values,
+                title="Тональность отзывов",
+                color=sentiment_counts.index,
+                color_discrete_map={'положительно': '#90EE90', 'отрицательно': '#FF6347', 'нейтрально': '#D3D3D3'}
+            )
+            st.plotly_chart(fig_sentiment, use_container_width=True)
 
-        # Распределение по темам
-        st.subheader("📋 Распределение по темам")
-        exploded_cat = filtered_df.copy()
-        exploded_cat['topic_list'] = exploded_cat['product_category'].str.split(', ')
-        exploded_cat = exploded_cat.explode('topic_list')
-        topic_counts = exploded_cat['topic_list'].value_counts()
-        fig2 = px.bar(x=topic_counts.index, y=topic_counts.values, title="Упоминания тем")
-        st.plotly_chart(fig2, use_container_width=True)
-
+        # Распределение по категориям
+        st.subheader("📋 Распределение по категориям продуктов")
+        if not filtered_df.empty:
+            exploded_cat = filtered_df.copy()
+            exploded_cat['cat_list'] = exploded_cat['product_category'].str.split(', ')
+            exploded_cat = exploded_cat.explode('cat_list')
+            cat_counts = exploded_cat['cat_list'].value_counts()
+            fig_cat = px.bar(
+                x=cat_counts.index,
+                y=cat_counts.values,
+                title="Категории и подкатегории",
+                labels={'x': 'Тема', 'y': 'Количество отзывов'}
+            )
+            st.plotly_chart(fig_cat, use_container_width=True)
     else:
         st.write("Нет данных для анализа.")
 else:
