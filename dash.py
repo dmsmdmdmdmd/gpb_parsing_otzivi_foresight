@@ -262,7 +262,7 @@ def load_data(uploaded_file, file_type):
                     result = process_review(review)
                     if 'error' not in result:
                         predictions.append(result)
-                # Создаём DataFrame с полными данными из JSON
+                # Создаём DataFrame без разбиения на строки
                 rows = []
                 for pred, orig in zip(predictions, data['data']):
                     row = {
@@ -301,20 +301,12 @@ def load_data(uploaded_file, file_type):
                 df['date'] = pd.to_datetime(df['date'], format='%d.%m.%Y', errors='coerce')
             if 'id' not in df.columns:
                 df['id'] = df.index + 1
-            expanded_rows = []
-            for _, row in df.iterrows():
-                categories = row['product_category'].split(', ') if isinstance(row['product_category'], str) else [row['product_category']]
-                for category in categories:
-                    new_row = row.copy()
-                    new_row['product_category'] = category.strip()
-                    expanded_rows.append(new_row)
-            expanded_df = pd.DataFrame(expanded_rows)
 
-            st.info(f"Загружено {len(expanded_df)} строк. Уникальные продукты: {sorted(expanded_df['product_category'].unique())}")
-            if 'date' in expanded_df.columns:
-                st.info(f"Диапазон дат: {expanded_df['date'].min().strftime('%d.%m.%Y')} - {expanded_df['date'].max().strftime('%d.%m.%Y')}")
+            st.info(f"Загружено {len(df)} строк. Уникальные продукты: {sorted(df['product_category'].unique())}")
+            if 'date' in df.columns:
+                st.info(f"Диапазон дат: {df['date'].min().strftime('%d.%m.%Y')} - {df['date'].max().strftime('%d.%m.%Y')}")
 
-            return expanded_df
+            return df
     return pd.DataFrame()
 
 if uploaded_csv or uploaded_json:
@@ -336,12 +328,12 @@ if not df.empty:
     sentiment_options = ['Все'] + ['positive', 'negative', 'neutral']
     sentiment_filter = st.sidebar.multiselect("Тональность", options=sentiment_options, default=['Все'])
 
-    main_product_options = ['Все'] + sorted([cat for cat in df['product_category'].unique() if ' - ' not in str(cat)])
+    main_product_options = ['Все'] + sorted([cat for cat in df['product_category'].str.split(', ').explode().unique() if ' - ' not in str(cat)])
     product_filter = st.sidebar.multiselect("Категория продукта", options=main_product_options, default=['Все'])
 
     subcategories_filter = []
     if 'Повседневные финансы и платежи' in product_filter and len(product_filter) == 1:
-        subcategories = sorted([cat for cat in df['product_category'].unique() if cat.startswith('Повседневные финансы и платежи - ')])
+        subcategories = sorted([cat for cat in df['product_category'].str.split(', ').explode().unique() if cat.startswith('Повседневные финансы и платежи - ')])
         subcategories_filter = st.sidebar.multiselect("Подкатегория продукта", options=subcategories, default=subcategories)
 
     if 'Все' in product_filter and len(product_filter) > 1:
@@ -353,7 +345,7 @@ if not df.empty:
     keyword_filter = st.sidebar.text_input("Ключевое слово в тексте", "")
 
     # Фильтрация данных с проверкой наличия колонок
-    mask = pd.Series(True, index=df.index)  # Начальная маска
+    mask = pd.Series(True, index=df.index)
     if 'date' in df.columns:
         mask &= (df['date'].dt.date >= start_date) & (df['date'].dt.date <= end_date)
     if 'rating' in df.columns:
@@ -363,13 +355,13 @@ if not df.empty:
     if 'sentiments' in df.columns and sentiment_filter and 'Все' not in sentiment_filter:
         mask &= df['sentiments'].str.contains('|'.join(sentiment_filter), case=False, na=False)
     if product_filter and 'Все' not in product_filter:
-        mask &= df['product_category'].isin(product_filter + subcategories_filter)
+        mask &= df['product_category'].str.contains('|'.join(product_filter + subcategories_filter), case=False, na=False)
     if 'text' in df.columns and keyword_filter:
         mask &= df['text'].str.contains(keyword_filter, case=False, na=False, regex=True)
 
     filtered_df = df[mask].copy()
 
-    st.info(f"После фильтрации: {len(filtered_df)} строк. Уникальные продукты в фильтре: {sorted(filtered_df['product_category'].unique())}")
+    st.info(f"После фильтрации: {len(filtered_df)} строк. Уникальные продукты в фильтре: {sorted(filtered_df['product_category'].str.split(', ').explode().unique())}")
 
     # Статистика
     st.header("📊 Общая статистика")
@@ -396,9 +388,9 @@ if not df.empty:
         product_monthly = filtered_df.groupby(['month', 'product_category']).size().reset_index(name='count')
         if not product_monthly.empty:
             if 'Повседневные финансы и платежи' in product_filter and len(product_filter) == 1:
-                product_monthly = product_monthly[product_monthly['product_category'].isin(['Повседневные финансы и платежи'] + subcategories_filter)]
+                product_monthly = product_monthly[product_monthly['product_category'].str.contains('Повседневные финансы и платежи')]
             else:
-                product_monthly = product_monthly[~product_monthly['product_category'].str.contains(' - ', na=False)]
+                product_monthly = product_monthly[product_monthly['product_category'].str.split(', ').apply(lambda x: all(' - ' not in str(cat) for cat in x))]
             if not product_monthly.empty:
                 fig_product_trend = px.line(product_monthly, x='month', y='count', color='product_category', title="Отзывы по продуктам по месяцам",
                                            height=600)
@@ -413,7 +405,7 @@ if not df.empty:
     # Распределение по категориям продуктов
     st.subheader("📋 Распределение по категориям продуктов")
     if 'product_category' in filtered_df and not filtered_df['product_category'].isna().all():
-        product_counts = filtered_df['product_category'].value_counts()
+        product_counts = filtered_df['product_category'].str.split(', ').explode().value_counts()
         if not product_counts.empty:
             if not product_filter or ('Все' in product_filter and len(product_filter) == 1):
                 product_counts_filtered = product_counts[~product_counts.index.str.contains(' - ', na=False)]
