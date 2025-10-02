@@ -18,4 +18,4 @@ curl.exe -s -X POST -H "Content-Type: application/json" -d "@C:\...\test_250_rev
  
 </h3>Открывается красивый и понятный дашборд с полным анализом.</h3>
 
-</h1>Как запустить? **[По ссылке](https://gpbparsingotziviforesight-wgf4rxgq65hm6pbuqb4cad.streamlit.app/)**. </h1>
+*[По ссылке](https://gpbparsingotziviforesight-wgf4rxgq65hm6pbuqb4cad.streamlit.app/)*.
