@@ -133,11 +133,17 @@ def classify_sentiment(text):
             
             sentiment_score += base_score
     
-    if sentiment_score > 1:
-        return 'positive'
-    elif sentiment_score < -1:
-        return 'negative'
-    return 'neutral'
+    # Определяем рейтинг с промежуточными значениями
+    if sentiment_score > 1.5:
+        return 'positive', 5
+    elif sentiment_score > 0.5:
+        return 'positive', 4
+    elif sentiment_score > -0.5:
+        return 'neutral', 3
+    elif sentiment_score > -1.5:
+        return 'negative', 2
+    else:
+        return 'negative', 1
 
 def classify_topics(text):
     text = text.lower()
@@ -188,27 +194,30 @@ def process_review(review):
     
     topics = []
     sentiments = []
+    ratings = []
     
     if parts:
         for part in parts:
             part_topics = classify_topics(part)
-            sentiment = classify_sentiment(part)
+            sentiment, rating = classify_sentiment(part)
             for topic in part_topics:
                 if topic not in topics:
                     topics.append(topic)
                     sentiments.append(sentiment)
+                    ratings.append(rating)
     else:
         topics = classify_topics(text)
-        sentiment = classify_sentiment(text)
+        sentiment, rating = classify_sentiment(text)
         sentiments = [sentiment] * len(topics)
+        ratings = [rating] * len(topics)
     
     if len(topics) > 1 and 'Другое' in topics:
         idx = topics.index('Другое')
         topics.pop(idx)
         sentiments.pop(idx)
+        ratings.pop(idx)
     
     current_date = datetime.now().strftime('%d.%m.%Y')
-    rating_map = {'negative': 1, 'neutral': 3, 'positive': 5}
     source = 'gold'
     author = review.get('author', 'Клиент банка')
     title = ' '.join(re.findall(r'\w+', text)[:5]) if text else 'Без заголовка'
@@ -225,8 +234,7 @@ def process_review(review):
     topics_str = ', '.join(topics)
     sentiments_str = ', '.join(sentiments)
     product_category_str = ', '.join(product_categories)
-    
-    avg_rating = sum(rating_map.get(s, 3) for s in sentiments) / len(sentiments) if sentiments else 3
+    avg_rating = sum(ratings) / len(ratings) if ratings else 3
     
     try:
         new_review = pd.DataFrame({
@@ -247,7 +255,7 @@ def process_review(review):
         logging.error(f"Error writing to CSV file: {str(e)}")
         return {'id': id, 'topics': topics, 'sentiments': sentiments, 'error': f"Ошибка при записи в файл: {str(e)}"}
     
-    return {'id': id, 'topics': topics, 'sentiments': sentiments, 'product_category': product_categories}
+    return {'id': id, 'topics': topics, 'sentiments': sentiments}
 
 @st.cache_data
 def load_data(uploaded_file, file_type):
@@ -262,7 +270,7 @@ def load_data(uploaded_file, file_type):
                     result = process_review(review)
                     if 'error' not in result:
                         predictions.append(result)
-                # Создаём DataFrame с полными данными из JSON
+                # Создаём DataFrame без разбиения на строки
                 rows = []
                 for pred, orig in zip(predictions, data['data']):
                     row = {
@@ -270,7 +278,6 @@ def load_data(uploaded_file, file_type):
                         'text': orig.get('text', ''),
                         'topics': ', '.join(pred['topics']),
                         'sentiments': ', '.join(pred['sentiments']),
-                        'product_category': ', '.join(pred['product_category']),
                         'date': orig.get('date', datetime.now().strftime('%d.%m.%Y')),
                         'rating': orig.get('rating', 3),
                         'author': orig.get('author', 'Клиент банка'),
@@ -293,7 +300,7 @@ def load_data(uploaded_file, file_type):
             if 'product_category' not in df.columns:
                 df['product_category'] = df['text'].apply(lambda x: ', '.join(classify_product_category(x, classify_topics(x))))
             if 'sentiments' not in df.columns:
-                df['sentiments'] = df['text'].apply(classify_sentiment)
+                df['sentiments'] = df['text'].apply(lambda x: classify_sentiment(x)[0])  # Берем только sentiment
             if 'topics' not in df.columns:
                 df['topics'] = df['text'].apply(lambda x: ', '.join(classify_topics(x)))
 
@@ -301,20 +308,12 @@ def load_data(uploaded_file, file_type):
                 df['date'] = pd.to_datetime(df['date'], format='%d.%m.%Y', errors='coerce')
             if 'id' not in df.columns:
                 df['id'] = df.index + 1
-            expanded_rows = []
-            for _, row in df.iterrows():
-                categories = row['product_category'].split(', ') if isinstance(row['product_category'], str) else [row['product_category']]
-                for category in categories:
-                    new_row = row.copy()
-                    new_row['product_category'] = category.strip()
-                    expanded_rows.append(new_row)
-            expanded_df = pd.DataFrame(expanded_rows)
 
-            st.info(f"Загружено {len(expanded_df)} строк. Уникальные продукты: {sorted(expanded_df['product_category'].unique())}")
-            if 'date' in expanded_df.columns:
-                st.info(f"Диапазон дат: {expanded_df['date'].min().strftime('%d.%m.%Y')} - {expanded_df['date'].max().strftime('%d.%m.%Y')}")
+            st.info(f"Загружено {len(df)} строк. Уникальные продукты: {sorted(df['product_category'].unique())}")
+            if 'date' in df.columns:
+                st.info(f"Диапазон дат: {df['date'].min().strftime('%d.%m.%Y')} - {df['date'].max().strftime('%d.%m.%Y')}")
 
-            return expanded_df
+            return df
     return pd.DataFrame()
 
 if uploaded_csv or uploaded_json:
@@ -353,7 +352,7 @@ if not df.empty:
     keyword_filter = st.sidebar.text_input("Ключевое слово в тексте", "")
 
     # Фильтрация данных с проверкой наличия колонок
-    mask = pd.Series(True, index=df.index)  # Начальная маска
+    mask = pd.Series(True, index=df.index)
     if 'date' in df.columns:
         mask &= (df['date'].dt.date >= start_date) & (df['date'].dt.date <= end_date)
     if 'rating' in df.columns:
@@ -363,7 +362,7 @@ if not df.empty:
     if 'sentiments' in df.columns and sentiment_filter and 'Все' not in sentiment_filter:
         mask &= df['sentiments'].str.contains('|'.join(sentiment_filter), case=False, na=False)
     if product_filter and 'Все' not in product_filter:
-        mask &= df['product_category'].isin(product_filter + subcategories_filter)
+        mask &= df['product_category'].str.contains('|'.join(product_filter + subcategories_filter), case=False, na=False)
     if 'text' in df.columns and keyword_filter:
         mask &= df['text'].str.contains(keyword_filter, case=False, na=False, regex=True)
 
