@@ -275,11 +275,7 @@ def extract_topic_from_fragment(fragment):
     return 'Другое'  # Только в крайнем случае
 
 def random_review_date():
-    start = datetime(2024, 1, 1)
-    end = datetime(2025, 5, 31)
-    delta = end - start
-    random_days = random.randrange(delta.days + 1)
-    return (start + timedelta(days=random_days)).strftime('%d.%m.%Y')
+    return '31.05.2025'  # Установлена фиксированная дата, если дата не указана
 
 def process_review(review):
     text = review.get('text', '')
@@ -419,15 +415,33 @@ if uploaded_json:
             exploded_cat['cat_list'] = exploded_cat['product_category'].str.split(', ')
             exploded_cat = exploded_cat.explode('cat_list')
             if not selected_categories:
-                # Агрегируем по категориям, если категории не выбраны
-                exploded_cat['cat_list'] = exploded_cat['cat_list'].apply(lambda x: SUBCAT_TO_CAT.get(x.strip(), 'Другое'))
-            cat_counts = exploded_cat['cat_list'].value_counts()
-            fig_cat = px.bar(
-                x=cat_counts.index,
-                y=cat_counts.values,
-                title="Категории и подкатегории",
-                labels={'x': 'Тема', 'y': 'Количество отзывов'}
-            )
+                # Агрегируем по основным категориям, если категории не выбраны
+                exploded_cat['cat_list'] = exploded_cat['cat_list'].apply(lambda x: SUBCAT_TO_CAT.get(x.strip(), x) if x != 'Другое' else x)
+                exploded_cat = exploded_cat[exploded_cat['cat_list'] != 'Другое']  # Удаляем 'Другое'
+                cat_counts = exploded_cat['cat_list'].value_counts()
+                fig_cat = px.bar(
+                    x=cat_counts.index,
+                    y=cat_counts.values,
+                    title="Категории и подкатегории",
+                    labels={'x': 'Тема', 'y': 'Количество отзывов'},
+                    color=cat_counts.index,
+                    color_discrete_map={
+                        'Повседневные финансы и платежи': '#FF9999',
+                        'Сбережения и накопления': '#66B2FF',
+                        'Кредитование': '#99FF99',
+                        'Инвестиции': '#FFCC99',
+                        'Страхование и защита': '#FF99CC',
+                        'Премиальные услуги': '#C2C2F0'
+                    }
+                )
+            else:
+                cat_counts = exploded_cat['cat_list'].value_counts()
+                fig_cat = px.bar(
+                    x=cat_counts.index,
+                    y=cat_counts.values,
+                    title="Категории и подкатегории",
+                    labels={'x': 'Тема', 'y': 'Количество отзывов'}
+                )
             st.plotly_chart(fig_cat, use_container_width=True)
 
         # Динамика отзывов по датам (ломаная линия, группировка по темам)
@@ -435,8 +449,9 @@ if uploaded_json:
         if not filtered_df.empty:
             exploded_df = filtered_df.assign(topic=filtered_df['topics'].str.split(', ')).explode('topic')
             if not selected_categories:
-                # Агрегируем по категориям, если категории не выбраны
-                exploded_df['topic'] = exploded_df['topic'].apply(lambda x: SUBCAT_TO_CAT.get(x.strip(), 'Другое'))
+                # Агрегируем по основным категориям, если категории не выбраны
+                exploded_df['topic'] = exploded_df['topic'].apply(lambda x: SUBCAT_TO_CAT.get(x.strip(), x) if x != 'Другое' else x)
+                exploded_df = exploded_df[exploded_df['topic'] != 'Другое']  # Удаляем 'Другое'
             exploded_df['date_str'] = exploded_df['date'].dt.date.astype(str)
             count_by_date_topic = exploded_df.groupby(['date_str', 'topic']).size().reset_index(name='count')
             fig_date = px.line(
@@ -445,7 +460,15 @@ if uploaded_json:
                 y='count',
                 color='topic',
                 title="Динамика количества отзывов по датам и темам",
-                labels={'date_str': 'Дата', 'count': 'Количество отзывов', 'topic': 'Тема'}
+                labels={'date_str': 'Дата', 'count': 'Количество отзывов', 'topic': 'Тема'},
+                color_discrete_map={
+                    'Повседневные финансы и платежи': '#FF9999',
+                    'Сбережения и накопления': '#66B2FF',
+                    'Кредитование': '#99FF99',
+                    'Инвестиции': '#FFCC99',
+                    'Страхование и защита': '#FF99CC',
+                    'Премиальные услуги': '#C2C2F0'
+                } if not selected_categories else None
             )
             st.plotly_chart(fig_date, use_container_width=True)
     else:
