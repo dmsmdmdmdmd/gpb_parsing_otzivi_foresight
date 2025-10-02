@@ -5,74 +5,141 @@ import json
 import re
 from datetime import datetime
 
-# Настройки страницы
 st.set_page_config(layout="wide", page_title="Аналитика отзывов о Газпромбанке")
-
 st.title("Аналитика отзывов о Газпромбанке")
 
-# === СООТВЕТСТВИЕ: Подкатегория → Название в ответе (как в эталоне) ===
-SUBCATEGORY_TO_TOPIC_NAME = {
-    'Мобильный банк': 'Мобильное приложение',
-    'Ведение валютных счетов': 'Валютные счета',
-    'Дебетовые карты': 'Дебетовая карта',
-    'Переводы': 'Переводы',
-    'Зарплатные карты': 'Зарплатная карта',
-    'Срочные вклады': 'Вклады',
-    'Сберегательные счета': 'Сберегательные счета',
-    'Обезличенные металлические счета': 'Металлические счета',
-    'Накопительные счета': 'Накопительные счета',
-    'Потребительские кредиты': 'Потребительский кредит',
-    'Кредитные карты': 'Кредитная карта',
-    'Ипотечные кредиты': 'Ипотека',
-    'Автокредиты': 'Автокредит',
-    'Рефинансирование': 'Рефинансирование',
-    'Брокерский счет': 'Брокерский счет',
-    'ИИС (Индивидуальный инвестиционный счет)': 'ИИС',
-    'ПИФы (Паевые инвестиционные фонды)': 'ПИФы',
-    'Структурные продукты': 'Структурные продукты',
-    'Страхование путешествий': 'Страхование путешествий',
-    'Страхование имущества': 'Страхование имущества',
-    'Страхование от несчастных случаев и болезней': 'Страхование от несчастных случаев',
-    'Страхование при оформлении кредитов': 'Страхование при кредитовании',
-    'Приват банкинг': 'Приват банкинг',
-    'Депозитарные ячейки': 'Депозитарные ячейки',
-    'Услуги по консультированию и планированию': 'Финансовое консультирование'
+# === ТОЧНЫЙ СПИСОК ПОДКАТЕГОРИЙ ИЗ ТЗ ===
+PRODUCT_CATEGORIES = {
+    'Повседневные финансы и платежи': [
+        'Ведение валютных счетов',
+        'Дебетовые карты',
+        'Мобильный банк',
+        'Переводы',
+        'Зарплатные карты'
+    ],
+    'Сбережения и накопления': [
+        'Срочные вклады',
+        'Сберегательные счета',
+        'Обезличенные металлические счета',
+        'Накопительные счета'
+    ],
+    'Кредитование': [
+        'Потребительские кредиты',
+        'Кредитные карты',
+        'Ипотечные кредиты',
+        'Автокредиты',
+        'Рефинансирование'
+    ],
+    'Инвестиции': [
+        'Брокерский счет',
+        'ИИС (Индивидуальный инвестиционный счет)',
+        'ПИФы (Паевые инвестиционные фонды)',
+        'Структурные продукты'
+    ],
+    'Страхование и защита': [
+        'Страхование путешествий',
+        'Страхование имущества',
+        'Страхование от несчастных случаев и болезней',
+        'Страхование при оформлении кредитов'
+    ],
+    'Премиальные услуги': [
+        'Приват банкинг',
+        'Депозитарные ячейки',
+        'Услуги по консультированию и планированию'
+    ]
 }
 
-# Обратное соответствие для поиска
-TOPIC_NAME_TO_SUBCATEGORY = {v: k for k, v in SUBCATEGORY_TO_TOPIC_NAME.items()}
-
-# Все возможные темы (в формате эталона)
-ALL_TOPIC_NAMES = list(SUBCATEGORY_TO_TOPIC_NAME.values())
+# Собираем все темы в формате "Категория — Подкатегория"
+ALL_TOPICS = []
+for cat, subcats in PRODUCT_CATEGORIES.items():
+    for sub in subcats:
+        ALL_TOPICS.append(f"{cat} — {sub}")
 
 # Ключевые слова для каждой подкатегории
-KEYWORDS = {
-    'Мобильный банк': {'keywords': ['мобильн', 'приложен', 'онлайн', 'зависа', 'мобилка'], 'phrases': ['мобильное приложение', 'мобильный банк']},
-    'Ведение валютных счетов': {'keywords': ['валют', 'счет', 'конвертац'], 'phrases': ['валютный счет']},
-    'Дебетовые карты': {'keywords': ['дебет', 'снятие', 'кэшбэк'], 'phrases': ['дебетовая карта']},
-    'Переводы': {'keywords': ['перевод', 'средств', 'перевести'], 'phrases': ['перевод денег']},
-    'Зарплатные карты': {'keywords': ['зарплат', 'зп'], 'phrases': ['зарплатная карта']},
-    'Срочные вклады': {'keywords': ['срочн', 'вклад'], 'phrases': ['срочный вклад']},
-    'Сберегательные счета': {'keywords': ['сберегательн', 'счет'], 'phrases': ['сберегательный счет']},
-    'Обезличенные металлические счета': {'keywords': ['металл', 'обезличен', 'омс'], 'phrases': ['обезличенный металлический счет']},
-    'Накопительные счета': {'keywords': ['накопит', 'счет'], 'phrases': ['накопительный счет']},
-    'Потребительские кредиты': {'keywords': ['потребительск', 'кредит'], 'phrases': ['потребительский кредит']},
-    'Кредитные карты': {'keywords': ['кредитн', 'карта', 'лимит'], 'phrases': ['кредитная карта']},
-    'Ипотечные кредиты': {'keywords': ['ипотек', 'ипотечн'], 'phrases': ['ипотечный кредит']},
-    'Автокредиты': {'keywords': ['автокредит', 'авто кредит'], 'phrases': ['автомобильный кредит']},
-    'Рефинансирование': {'keywords': ['рефинансирован'], 'phrases': ['рефинансирование кредита']},
-    'Брокерский счет': {'keywords': ['брокер', 'счет'], 'phrases': ['брокерский счет']},
-    'ИИС (Индивидуальный инвестиционный счет)': {'keywords': ['иис', 'инвест', 'счет'], 'phrases': ['индивидуальный инвестиционный счет']},
-    'ПИФы (Паевые инвестиционные фонды)': {'keywords': ['пиф', 'паев', 'фонд'], 'phrases': ['паевой фонд']},
-    'Структурные продукты': {'keywords': ['структурн'], 'phrases': ['структурный продукт']},
-    'Страхование путешествий': {'keywords': ['путешестви', 'туризм', 'поездк'], 'phrases': ['страхование путешествий']},
-    'Страхование имущества': {'keywords': ['имуществ', 'дом', 'квартир'], 'phrases': ['страхование имущества']},
-    'Страхование от несчастных случаев и болезней': {'keywords': ['несчастн', 'болезн', 'травм', 'инвалид'], 'phrases': ['страхование от несчастных случаев']},
-    'Страхование при оформлении кредитов': {'keywords': ['кредит', 'страхован'], 'phrases': ['страхование при оформлении кредита']},
-    'Приват банкинг': {'keywords': ['приват', 'премиум', 'vip'], 'phrases': ['приват-банкинг']},
-    'Депозитарные ячейки': {'keywords': ['ячейк', 'сейф'], 'phrases': ['депозитарные ячейки']},
-    'Услуги по консультированию и планированию': {'keywords': ['консультирован', 'планирован', 'финансов', 'совет'], 'phrases': ['услуги по консультированию']}
-}
+KEYWORDS = {}
+
+for cat, subcats in PRODUCT_CATEGORIES.items():
+    for sub in subcats:
+        full_name = f"{cat} — {sub}"
+        if sub == 'Ведение валютных счетов':
+            words = ['валют', 'счет', 'конвертац']
+            phrases = ['валютный счет']
+        elif sub == 'Дебетовые карты':
+            words = ['дебет', 'снятие', 'кэшбэк']
+            phrases = ['дебетовая карта']
+        elif sub == 'Мобильный банк':
+            words = ['мобильн', 'приложен', 'онлайн', 'зависа', 'мобилка']
+            phrases = ['мобильное приложение', 'мобильный банк']
+        elif sub == 'Переводы':
+            words = ['перевод', 'средств', 'перевести']
+            phrases = ['перевод денег']
+        elif sub == 'Зарплатные карты':
+            words = ['зарплат', 'зп']
+            phrases = ['зарплатная карта']
+        elif sub == 'Срочные вклады':
+            words = ['срочн', 'вклад']
+            phrases = ['срочный вклад']
+        elif sub == 'Сберегательные счета':
+            words = ['сберегательн', 'счет']
+            phrases = ['сберегательный счет']
+        elif sub == 'Обезличенные металлические счета':
+            words = ['металл', 'обезличен', 'омс']
+            phrases = ['обезличенный металлический счет']
+        elif sub == 'Накопительные счета':
+            words = ['накопит', 'счет']
+            phrases = ['накопительный счет']
+        elif sub == 'Потребительские кредиты':
+            words = ['потребительск', 'кредит']
+            phrases = ['потребительский кредит']
+        elif sub == 'Кредитные карты':
+            words = ['кредитн', 'карта', 'лимит']
+            phrases = ['кредитная карта']
+        elif sub == 'Ипотечные кредиты':
+            words = ['ипотек', 'ипотечн']
+            phrases = ['ипотечный кредит']
+        elif sub == 'Автокредиты':
+            words = ['автокредит', 'авто кредит']
+            phrases = ['автомобильный кредит']
+        elif sub == 'Рефинансирование':
+            words = ['рефинансирован']
+            phrases = ['рефинансирование кредита']
+        elif sub == 'Брокерский счет':
+            words = ['брокер', 'счет']
+            phrases = ['брокерский счет']
+        elif sub == 'ИИС (Индивидуальный инвестиционный счет)':
+            words = ['иис', 'инвест', 'счет']
+            phrases = ['индивидуальный инвестиционный счет']
+        elif sub == 'ПИФы (Паевые инвестиционные фонды)':
+            words = ['пиф', 'паев', 'фонд']
+            phrases = ['паевой фонд']
+        elif sub == 'Структурные продукты':
+            words = ['структурн']
+            phrases = ['структурный продукт']
+        elif sub == 'Страхование путешествий':
+            words = ['путешестви', 'туризм', 'поездк']
+            phrases = ['страхование путешествий']
+        elif sub == 'Страхование имущества':
+            words = ['имуществ', 'дом', 'квартир']
+            phrases = ['страхование имущества']
+        elif sub == 'Страхование от несчастных случаев и болезней':
+            words = ['несчастн', 'болезн', 'травм', 'инвалид']
+            phrases = ['страхование от несчастных случаев']
+        elif sub == 'Страхование при оформлении кредитов':
+            words = ['кредит', 'страхован']
+            phrases = ['страхование при оформлении кредита']
+        elif sub == 'Приват банкинг':
+            words = ['приват', 'премиум', 'vip']
+            phrases = ['приват-банкинг']
+        elif sub == 'Депозитарные ячейки':
+            words = ['ячейк', 'сейф']
+            phrases = ['депозитарные ячейки']
+        elif sub == 'Услуги по консультированию и планированию':
+            words = ['консультирован', 'планирован', 'финансов', 'совет']
+            phrases = ['услуги по консультированию']
+        else:
+            words = []
+            phrases = []
+        KEYWORDS[full_name] = {'keywords': words, 'phrases': phrases}
 
 # Лексикон тональности
 SENTIMENT_LEXICON = {
@@ -115,74 +182,69 @@ def classify_sentiment(text):
     else:
         return 'нейтрально'
 
-def find_topics_in_fragment(fragment):
-    """Возвращает список тем (в формате эталона), найденных в фрагменте"""
-    fragment = fragment.lower()
-    words = set(re.findall(r'\w+', fragment))
-    found_topics = []
-    
-    for subcat, data in KEYWORDS.items():
-        # Проверяем фразы
-        if any(phrase in fragment for phrase in data['phrases']):
-            topic_name = SUBCATEGORY_TO_TOPIC_NAME[subcat]
-            if topic_name not in found_topics:
-                found_topics.append(topic_name)
-            continue
-        # Проверяем ключевые слова
-        if any(kw in words for kw in data['keywords']):
-            topic_name = SUBCATEGORY_TO_TOPIC_NAME[subcat]
-            if topic_name not in found_topics:
-                found_topics.append(topic_name)
-    
-    return found_topics
+def split_into_fragments(text):
+    # Разделяем по союзам, сохраняя контекст
+    parts = re.split(r'\b(но|зато|однако|при этом|а также|и|но при этом|зато при этом)\b', text, flags=re.IGNORECASE)
+    fragments = []
+    current = ""
+    for i, part in enumerate(parts):
+        if i % 2 == 0:
+            current = part.strip()
+        else:
+            if current:
+                fragments.append(current)
+            current = part.strip() + " " + (parts[i+1].strip() if i+1 < len(parts) else "")
+    if current:
+        fragments.append(current)
+    return fragments if fragments else [text]
 
 def process_review(review):
     text = review.get('text', '')
     id = review.get('id', 0)
     
-    # Разбиваем на фрагменты по союзам
-    parts = re.split(r'\b(но|зато|однако|а также|при этом|и|но при этом|зато при этом)\b', text, flags=re.IGNORECASE)
-    fragments = []
-    for i in range(0, len(parts), 2):
-        frag = parts[i].strip()
-        if i + 1 < len(parts) and parts[i+1].strip():
-            frag += ' ' + parts[i+1].strip()
-        if frag:
-            fragments.append(frag.strip())
+    # Находим все темы в отзыве
+    found_topics = []
+    for topic, data in KEYWORDS.items():
+        if any(phrase in text.lower() for phrase in data['phrases']) or \
+           any(kw in text.lower() for kw in data['keywords']):
+            found_topics.append(topic)
     
-    if not fragments:
-        fragments = [text]
+    if not found_topics:
+        found_topics = ["Другое"]
     
-    all_topics = []
-    all_sentiments = []
+    # Разбиваем на фрагменты
+    fragments = split_into_fragments(text)
     
-    for frag in fragments:
-        topics_in_frag = find_topics_in_fragment(frag)
-        sentiment = classify_sentiment(frag)
-        # Для каждой темы в этом фрагменте — добавляем её и тональность
-        for topic in topics_in_frag:
-            all_topics.append(topic)
-            all_sentiments.append(sentiment)
+    # Для каждой темы находим ближайший фрагмент и определяем тональность
+    sentiments = []
+    for topic in found_topics:
+        if topic == "Другое":
+            sent = classify_sentiment(text)
+        else:
+            # Ищем фрагмент, содержащий ключевые слова темы
+            sent = 'нейтрально'
+            data = KEYWORDS[topic]
+            for frag in fragments:
+                if any(phrase in frag.lower() for phrase in data['phrases']) or \
+                   any(kw in frag.lower() for kw in data['keywords']):
+                    sent = classify_sentiment(frag)
+                    break
+        sentiments.append(sent)
     
-    # Если ни одна тема не найдена — ставим "Другое"
-    if not all_topics:
-        all_topics = ["Другое"]
-        all_sentiments = [classify_sentiment(text)]
-    
-    # Rating для дашборда (не возвращается в API!)
-    if all(s == 'положительно' for s in all_sentiments):
+    # Rating для дашборда (не возвращается в API)
+    if all(s == 'положительно' for s in sentiments):
         rating = 5
-    elif all(s == 'нейтрально' for s in all_sentiments):
+    elif all(s == 'нейтрально' for s in sentiments):
         rating = 3
     else:
-        rating = 1  # есть хотя бы один негатив
+        rating = 1
     
     return {
         'id': id,
         'text': text,
-        'topics': ', '.join(all_topics),
-        'sentiments': ', '.join(all_sentiments),
-        'product_category': ', '.join(all_topics),
+        'topics': ', '.join(found_topics),
+        'sentiments': ', '.join(sentiments),
+        'product_category': ', '.join(found_topics),
         'date': datetime.now().strftime('%d.%m.%Y'),
         'rating': rating,
         'author': review.get('author', 'Клиент банка'),
@@ -220,12 +282,29 @@ if uploaded_json:
         end_date = st.sidebar.date_input("Конечная дата", max_date, min_value=min_date, max_value=max_date)
         rating_filter = st.sidebar.slider("Рейтинг", min_value=1, max_value=5, value=(1, 5))
         
-        selected_topics = st.sidebar.multiselect("Темы", options=sorted(ALL_TOPIC_NAMES), default=[])
+        # Фильтры по категориям и подкатегориям
+        selected_categories = st.sidebar.multiselect(
+            "Категории",
+            options=list(PRODUCT_CATEGORIES.keys()),
+            default=[]
+        )
+        all_subcats = [sub for subs in PRODUCT_CATEGORIES.values() for sub in subs]
+        selected_subcategories = st.sidebar.multiselect(
+            "Подкатегории",
+            options=all_subcats,
+            default=[]
+        )
 
         # Фильтрация
         mask = (df['date'].dt.date >= start_date) & (df['date'].dt.date <= end_date) & (df['rating'].between(*rating_filter))
-        if selected_topics:
-            mask &= df['product_category'].str.contains('|'.join(selected_topics), case=False, na=False)
+        
+        if selected_categories:
+            cat_pattern = '|'.join([re.escape(cat) for cat in selected_categories])
+            mask &= df['product_category'].str.contains(cat_pattern, case=False, na=False)
+        if selected_subcategories:
+            subcat_pattern = '|'.join([re.escape(sub) for sub in selected_subcategories])
+            mask &= df['product_category'].str.contains(subcat_pattern, case=False, na=False)
+
         filtered_df = df[mask].copy()
 
         # Вывод
