@@ -53,7 +53,7 @@ It opens a beautiful and clear dashboard with full analysis. <br>
 <h1>Launching remotely</h1> 
 
 **<h3>Everything is simple</h3>** <br>
-<br>1.Moving on *[By the link](https://gpbparsingotziviforesight-wgf4rxgq65hm6pbuqb4cad.streamlit.app /)*. <br>
+<br> 1.Moving on *[By the link](https://gpbparsingotziviforesight-wgf4rxgq65hm6pbuqb4cad.streamlit.app/)*. <br>
 2.Download the format file.json with reviews, <br>
 3.Enjoy <br>
 <br>
