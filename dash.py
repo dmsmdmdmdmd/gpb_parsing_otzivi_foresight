@@ -3,8 +3,7 @@ import pandas as pd
 import plotly.express as px
 import json
 import re
-from datetime import datetime, timedelta
-import random
+from datetime import datetime
 
 # Настройки страницы
 st.set_page_config(layout="wide", page_title="Аналитика отзывов о Газпромбанке")
@@ -363,10 +362,11 @@ if uploaded_json:
     df = load_data(uploaded_json)
     if not df.empty:
         st.sidebar.header("Фильтры")
-        min_date = df['date'].min().date()
-        max_date = df['date'].max().date()
-        start_date = st.sidebar.date_input("Начальная дата", min_date, min_value=min_date, max_value=max_date)
-        end_date = st.sidebar.date_input("Конечная дата", max_date, min_value=min_date, max_value=max_date)
+        # Автоматический фильтр дат
+        start_date = datetime(2024, 1, 1).date()
+        end_date = datetime(2025, 5, 31).date()
+        st.sidebar.date_input("Начальная дата", value=start_date, min_value=start_date, max_value=end_date, disabled=True)
+        st.sidebar.date_input("Конечная дата", value=end_date, min_value=start_date, max_value=end_date, disabled=True)
 
         rating_filter = st.sidebar.slider("Рейтинг", min_value=1, max_value=5, value=(1, 5))
 
