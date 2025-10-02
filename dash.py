@@ -324,8 +324,8 @@ if not df.empty:
     st.sidebar.header("Фильтры")
     min_date_default = datetime(2024, 1, 1).date()
     max_date_default = datetime(2025, 5, 31).date()
-    min_date = df['date'].min().date() if 'date' in df and pd.notna(df['date'].min()) and df['date'].min().date() >= min_date_default else min_date_default
-    max_date = df['date'].max().date() if 'date' in df and pd.notna(df['date'].max()) and df['date'].max().date() <= max_date_default else max_date_default
+    min_date = min_date_default if 'date' not in df.columns or df['date'].isna().all() else max(min_date_default, df['date'].min().date())
+    max_date = max_date_default if 'date' not in df.columns or df['date'].isna().all() else min(max_date_default, df['date'].max().date())
     start_date = st.sidebar.date_input("Начальная дата", min_date, min_value=min_date_default, max_value=max_date_default)
     end_date = st.sidebar.date_input("Конечная дата", max_date if max_date <= max_date_default else max_date_default, 
                                     min_value=min_date_default, max_value=max_date_default)
