@@ -31,11 +31,13 @@ curl.exe -s -X POST -H "Content-Type: application/json" -d "@C:\...\test_250_rev
 <h1>dash.py</h1>
 <br>
 
-<h2>По умолчанию для графиков выбрана тема *Другое* </h2> <br>
+<h2>Важно</h2>
 
-<h2>Для просмотра подробнее по классификациям необходимо выбрать их в фильтрах</h2> <br>
+По умолчанию для графиков выбрана тема *Другое* <br>
 
-<h2>Чтобы выбрать *другое* на графиках нужно выбрать отдельную категорию</h2>
+Для просмотра подробнее по классификациям необходимо выбрать их в фильтрах <br>
+
+Чтобы выбрать *другое* на графиках нужно выбрать отдельную категорию
 
 📊Аналитика отзывов о Газпромбанке
 
@@ -212,6 +214,16 @@ It opens a beautiful and clear dashboard with full analysis. <br>
 
 <h1>dash.py</h1>
 <br>
+
+<h2>Important</h2>
+
+The default theme for charts is *Other* <br>
+
+To view more information on classifications, select them in the filters <br>
+
+To select *other* on the charts, you need to select a separate category.
+
+
 📊 Gazprombank reviews analysis
 
 A web application for analyzing customer reviews of Gazprombank's products and services.<br>
