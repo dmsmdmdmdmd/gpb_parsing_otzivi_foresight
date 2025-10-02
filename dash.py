@@ -254,14 +254,21 @@ def load_data(uploaded_file, file_type):
     if uploaded_file is not None:
         if file_type == 'csv':
             df = pd.read_csv(uploaded_file, sep=';', encoding='utf-8-sig', on_bad_lines='skip')
+            st.write("CSV загружен успешно.")
         else:  # json
             data = json.load(uploaded_file)
+            st.write("JSON загружен, начинаю обработку...")
             if 'data' in data and isinstance(data['data'], list):
                 predictions = []
                 for review in data['data']:
                     result = process_review(review)
                     if 'error' not in result:
                         predictions.append(result)
+                    else:
+                        st.warning(f"Ошибка обработки отзыва с id {result['id']}: {result['error']}")
+                if not predictions:
+                    st.error("Не удалось обработать ни одного отзыва из JSON.")
+                    return pd.DataFrame()
                 # Создаём DataFrame с полными данными
                 rows = []
                 for pred, orig in zip(predictions, data['data']):
@@ -279,6 +286,7 @@ def load_data(uploaded_file, file_type):
                     }
                     rows.append(row)
                 df = pd.DataFrame(rows)
+                st.write(f"Обработано {len(df)} отзывов из JSON.")
             else:
                 st.error("Неверный формат JSON. Ожидается {'data': [{'id': 1, 'text': '...'}]}")
                 return pd.DataFrame()
@@ -302,7 +310,7 @@ def load_data(uploaded_file, file_type):
             if 'id' not in df.columns:
                 df['id'] = df.index + 1
 
-            st.info(f"Загружено {len(df)} строк. Уникальные продукты: {sorted(df['product_category'].unique())}")
+            st.info(f"Загружено {len(df)} строк. Уникальные продукты: {sorted(df['product_category'].str.split(', ').explode().unique())}")
             if 'date' in df.columns:
                 st.info(f"Диапазон дат: {df['date'].min().strftime('%d.%m.%Y')} - {df['date'].max().strftime('%d.%m.%Y')}")
 
