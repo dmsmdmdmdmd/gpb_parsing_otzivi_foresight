@@ -54,6 +54,9 @@ PRODUCT_CATEGORIES = {
     ]
 }
 
+# Обратное сопоставление подкатегорий к категориям
+SUBCAT_TO_CAT = {sub: cat for cat, subs in PRODUCT_CATEGORIES.items() for sub in subs}
+
 # Собираем все подкатегории и категории
 ALL_CATEGORIES = list(PRODUCT_CATEGORIES.keys())
 ALL_SUBCATEGORIES = [sub for subs in PRODUCT_CATEGORIES.values() for sub in subs]
@@ -372,7 +375,12 @@ if uploaded_json:
         rating_filter = st.sidebar.slider("Рейтинг", min_value=1, max_value=5, value=(1, 5))
 
         selected_categories = st.sidebar.multiselect("Категории", options=ALL_CATEGORIES, default=[])
-        selected_subcategories = st.sidebar.multiselect("Подкатегории", options=ALL_SUBCATEGORIES, default=[])
+
+        if selected_categories:
+            available_subcategories = [sub for cat in selected_categories for sub in PRODUCT_CATEGORIES.get(cat, [])]
+            selected_subcategories = st.sidebar.multiselect("Подкатегории", options=available_subcategories, default=[])
+        else:
+            selected_subcategories = []
 
         # Фильтрация
         mask = (df['date'].dt.date >= start_date) & (df['date'].dt.date <= end_date) & (df['rating'].between(*rating_filter))
@@ -410,6 +418,9 @@ if uploaded_json:
             exploded_cat = filtered_df.copy()
             exploded_cat['cat_list'] = exploded_cat['product_category'].str.split(', ')
             exploded_cat = exploded_cat.explode('cat_list')
+            if not selected_categories:
+                # Агрегируем по категориям, если категории не выбраны
+                exploded_cat['cat_list'] = exploded_cat['cat_list'].apply(lambda x: SUBCAT_TO_CAT.get(x.strip(), 'Другое'))
             cat_counts = exploded_cat['cat_list'].value_counts()
             fig_cat = px.bar(
                 x=cat_counts.index,
@@ -423,6 +434,9 @@ if uploaded_json:
         st.subheader("📅 Динамика отзывов по датам (по темам)")
         if not filtered_df.empty:
             exploded_df = filtered_df.assign(topic=filtered_df['topics'].str.split(', ')).explode('topic')
+            if not selected_categories:
+                # Агрегируем по категориям, если категории не выбраны
+                exploded_df['topic'] = exploded_df['topic'].apply(lambda x: SUBCAT_TO_CAT.get(x.strip(), 'Другое'))
             exploded_df['date_str'] = exploded_df['date'].dt.date.astype(str)
             count_by_date_topic = exploded_df.groupby(['date_str', 'topic']).size().reset_index(name='count')
             fig_date = px.line(
