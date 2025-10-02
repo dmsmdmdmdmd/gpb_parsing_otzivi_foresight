@@ -322,11 +322,13 @@ else:
 
 if not df.empty:
     st.sidebar.header("Фильтры")
-    min_date = df['date'].min().date() if 'date' in df and pd.notna(df['date'].min()) else datetime(2024, 1, 1).date()
-    max_date = df['date'].max().date() if 'date' in df and pd.notna(df['date'].max()) else datetime(2025, 5, 31).date()
-    start_date = st.sidebar.date_input("Начальная дата", min_date, min_value=datetime(2024, 1, 1), max_value=datetime(2025, 5, 31))
-    end_date = st.sidebar.date_input("Конечная дата", max_date if max_date <= datetime(2025, 5, 31) else datetime(2025, 5, 31), 
-                                    min_value=datetime(2024, 1, 1), max_value=datetime(2025, 5, 31))
+    min_date_default = datetime(2024, 1, 1).date()
+    max_date_default = datetime(2025, 5, 31).date()
+    min_date = df['date'].min().date() if 'date' in df and pd.notna(df['date'].min()) and df['date'].min().date() >= min_date_default else min_date_default
+    max_date = df['date'].max().date() if 'date' in df and pd.notna(df['date'].max()) and df['date'].max().date() <= max_date_default else max_date_default
+    start_date = st.sidebar.date_input("Начальная дата", min_date, min_value=min_date_default, max_value=max_date_default)
+    end_date = st.sidebar.date_input("Конечная дата", max_date if max_date <= max_date_default else max_date_default, 
+                                    min_value=min_date_default, max_value=max_date_default)
 
     source_options = ['Все'] + sorted(df['source'].dropna().unique().tolist()) if 'source' in df.columns else ['Все']
     source_filter = st.sidebar.multiselect("Источник", options=source_options, default=['Все'])
