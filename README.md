@@ -18,4 +18,4 @@ curl.exe -s -X POST -H "Content-Type: application/json" -d "@C:\...\test_250_rev
  
 </h3>Открывается красивый и понятный дашборд с полным анализом.</h3>
 
-</h1>Как запустить? [По ссылке]([https://duckduckgo.com "The best search engine for privacy](https://gpbparsingotziviforesight-wgf4rxgq65hm6pbuqb4cad.streamlit.app/)")</h1>
+</h1>Как запустить? [По ссылке]([https://duckduckgo.com](https://gpbparsingotziviforesight-wgf4rxgq65hm6pbuqb4cad.streamlit.app/)) </h1>
