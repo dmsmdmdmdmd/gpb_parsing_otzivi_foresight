@@ -20,7 +20,8 @@ curl.exe -s -X POST -H "Content-Type: application/json" -d "@C:\...\test_250_rev
  
 </h3>Открывается красивый и понятный дашборд с полным анализом.</h3> <br>
 
-</h1>Запускаем удаленно</h1>
-Переходим *[По ссылке](https://gpbparsingotziviforesight-wgf4rxgq65hm6pbuqb4cad.streamlit.app/)*. <br>
+</h1>Запускаем удаленно</h1> <br>
+
+Переходим *[По ссылке](https://gpbparsingotziviforesight-wgf4rxgq65hm6pbuqb4cad.streamlit.app/)*.
 Загружаем файл формата .json с отзывами, <br>
 Наслаждаемся
