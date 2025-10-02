@@ -18,12 +18,10 @@ curl.exe -s -X POST -H "Content-Type: application/json" -d "@C:\...\test_250_rev
  4.Открываем и запускаем файл "api_reviews.py"<br>
  5.Открываем powershell и в нужной директории прописываем: streamlit run dash.py<br>
  
-</h3>Открывается красивый и понятный дашборд с полным анализом.</h3> 
-<br>
+Открывается красивый и понятный дашборд с полным анализом. <br>
 
 </h1>Запускаем удаленно</h1> 
-<br>
 
-Переходим *[По ссылке](https://gpbparsingotziviforesight-wgf4rxgq65hm6pbuqb4cad.streamlit.app/)*.
+<br>Переходим *[По ссылке](https://gpbparsingotziviforesight-wgf4rxgq65hm6pbuqb4cad.streamlit.app/)*.
 Загружаем файл формата .json с отзывами, <br>
 Наслаждаемся
