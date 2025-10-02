@@ -274,6 +274,13 @@ def extract_topic_from_fragment(fragment):
     
     return 'Другое'  # Только в крайнем случае
 
+def random_review_date():
+    start = datetime(2024, 1, 1)
+    end = datetime(2025, 5, 31)
+    delta = end - start
+    random_days = random.randrange(delta.days + 1)
+    return (start + timedelta(days=random_days)).strftime('%d.%m.%Y')
+
 def process_review(review):
     text = review.get('text', '')
     id = review.get('id', 0)
@@ -323,16 +330,13 @@ def process_review(review):
         else:
             rating = 3
     
-    # Дата: если в review есть 'date', использовать её, иначе 31.05.2025
-    date_str = review.get('date', '31.05.2025')
-    
     return {
         'id': id,
         'text': text,
         'topics': ', '.join(topics),
         'sentiments': ', '.join(sentiments),
         'product_category': ', '.join(topics),
-        'date': date_str,
+        'date': random_review_date(),
         'rating': rating,
         'author': review.get('author', 'Клиент банка'),
         'source': 'gold'
@@ -347,8 +351,7 @@ def load_data(uploaded_file):
                 predictions = [process_review(review) for review in data['data']]
                 df = pd.DataFrame(predictions)
                 if not df.empty:
-                    df['date'] = pd.to_datetime(df['date'], format='%d.%m.%Y', errors='coerce')
-                    df['date'] = df['date'].fillna(pd.to_datetime('31.05.2025', format='%d.%m.%Y'))
+                    df['date'] = pd.to_datetime(df['date'], format='%d.%m.%Y')
                     st.info(f"Загружено {len(df)} отзывов")
                     return df
         except Exception as e:
@@ -415,10 +418,9 @@ if uploaded_json:
             exploded_cat = filtered_df.copy()
             exploded_cat['cat_list'] = exploded_cat['product_category'].str.split(', ')
             exploded_cat = exploded_cat.explode('cat_list')
-            if len(selected_categories) != 1:
-                # Агрегируем по категориям, исключая 'Другое'
-                exploded_cat = exploded_cat[exploded_cat['cat_list'] != 'Другое']
-                exploded_cat['cat_list'] = exploded_cat['cat_list'].apply(lambda x: SUBCAT_TO_CAT.get(x.strip(), x.strip()))
+            if not selected_categories:
+                # Агрегируем по категориям, если категории не выбраны
+                exploded_cat['cat_list'] = exploded_cat['cat_list'].apply(lambda x: SUBCAT_TO_CAT.get(x.strip(), 'Другое'))
             cat_counts = exploded_cat['cat_list'].value_counts()
             fig_cat = px.bar(
                 x=cat_counts.index,
@@ -432,10 +434,9 @@ if uploaded_json:
         st.subheader("📅 Динамика отзывов по датам (по темам)")
         if not filtered_df.empty:
             exploded_df = filtered_df.assign(topic=filtered_df['topics'].str.split(', ')).explode('topic')
-            if len(selected_categories) != 1:
-                # Агрегируем по категориям, исключая 'Другое'
-                exploded_df = exploded_df[exploded_df['topic'] != 'Другое']
-                exploded_df['topic'] = exploded_df['topic'].apply(lambda x: SUBCAT_TO_CAT.get(x.strip(), x.strip()))
+            if not selected_categories:
+                # Агрегируем по категориям, если категории не выбраны
+                exploded_df['topic'] = exploded_df['topic'].apply(lambda x: SUBCAT_TO_CAT.get(x.strip(), 'Другое'))
             exploded_df['date_str'] = exploded_df['date'].dt.date.astype(str)
             count_by_date_topic = exploded_df.groupby(['date_str', 'topic']).size().reset_index(name='count')
             fig_date = px.line(
