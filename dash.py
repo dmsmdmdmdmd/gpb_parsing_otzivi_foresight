@@ -19,11 +19,11 @@ st.sidebar.header("Настройки и загрузка данных")
 uploaded_csv = st.sidebar.file_uploader("Загрузите CSV с отзывами", type=['csv'])
 uploaded_json = st.sidebar.file_uploader("Загрузите JSON с отзывами для анализа", type=['json'])
 
-# Настройка логирования (как в app.py)
+# Настройка логирования
 logging.basicConfig(filename='app_errors.log', level=logging.ERROR,
                     format='%(asctime)s - %(levelname)s - %(message)s')
 
-# Словарь для тональности с весами (из app.py)
+# Словарь для тональности с весами
 SENTIMENT_LEXICON = {
     'positive': {
         'отличн': 2, 'хорош': 2, 'прекрасн': 2, 'быстр': 1, 'удобн': 1, 'понятн': 1,
@@ -47,7 +47,7 @@ SENTIMENT_LEXICON = {
     }
 }
 
-# Усиливающие слова и отрицания (из app.py)
+# Усиливающие слова и отрицания
 INTENSIFIERS = {
     'очень': 1.5, 'крайне': 2, 'совсем': 1.5, 'абсолютно': 2, 'полностью': 1.5, 'сильно': 1.5,
     'чрезвычайно': 2, 'невероятно': 2, 'удивительно': 1.5, 'необычно': 1.5, 'весьма': 1.5,
@@ -58,7 +58,7 @@ NEGATION_WORDS = {
     'не', 'нет', 'ни', 'без', 'нельзя', 'невозможно', 'никак', 'ничуть'
 }
 
-# Словарь для тем (из app.py)
+# Словарь для тем
 PRODUCT_CATEGORIES_TOPICS = {
     'Обслуживание': {
         'keywords': ['обслуживан', 'отделени', 'клиент', 'очеред', 'персонал', 'менеджер', 'консультант', 'прием', 'касса', 'оператор', 'обслуживание'],
@@ -74,7 +74,7 @@ PRODUCT_CATEGORIES_TOPICS = {
     }
 }
 
-# Словарь для классификации продуктов (из dash.py, дополненный)
+# Словарь для классификации продуктов
 PRODUCT_CATEGORIES_MAIN = {
     'Повседневные финансы и платежи': {
         'subcategories': {
@@ -109,7 +109,7 @@ PRODUCT_CATEGORIES_MAIN = {
     }
 }
 
-# Функции классификации (из app.py)
+# Функции классификации
 def classify_sentiment(text):
     text = text.lower()
     sentiment_score = 0
@@ -126,10 +126,8 @@ def classify_sentiment(text):
                 break
         
         if base_score != 0:
-            # Проверка усилителей
             if i > 0 and words[i-1] in INTENSIFIERS:
                 base_score *= INTENSIFIERS[words[i-1]]
-            # Проверка отрицаний
             if i > 0 and words[i-1] in NEGATION_WORDS:
                 base_score = -base_score
             
@@ -177,7 +175,6 @@ def classify_product_category(text, topics):
         else:
             categories.add(category)
 
-    # Если есть конкретные темы, исключаем "Другое"
     if len(categories) > 1 and 'Другое' in categories:
         categories.remove('Другое')
     return list(categories) if categories else ['Другое']
@@ -186,7 +183,6 @@ def process_review(review):
     text = review.get('text', '')
     id = review.get('id', 0)
     
-    # Разделяем текст по "но" и обрабатываем
     parts = re.split(r'\bно\b', text, flags=re.IGNORECASE)
     parts = [p.strip() for p in parts if p.strip()]
     
@@ -206,21 +202,18 @@ def process_review(review):
         sentiment = classify_sentiment(text)
         sentiments = [sentiment] * len(topics)
     
-    # Удаляем "Другое", если есть конкретные темы
     if len(topics) > 1 and 'Другое' in topics:
         idx = topics.index('Другое')
         topics.pop(idx)
         sentiments.pop(idx)
     
-    # Дополнительные атрибуты
     current_date = datetime.now().strftime('%d.%m.%Y')
     rating_map = {'negative': 1, 'neutral': 3, 'positive': 5}
-    source = 'gold'  # Источник для отзывов
+    source = 'gold'
     author = review.get('author', 'Клиент банка')
     title = ' '.join(re.findall(r'\w+', text)[:5]) if text else 'Без заголовка'
     product_categories = classify_product_category(text, topics)
     
-    # Читаем существующий CSV или создаём новый
     try:
         df = pd.read_csv('gazprombank_reviews_classified.csv', sep=';', encoding='utf-8-sig')
     except FileNotFoundError:
@@ -229,15 +222,12 @@ def process_review(review):
         logging.error(f"Error reading CSV file: {str(e)}")
         return {'id': id, 'topics': topics, 'sentiments': sentiments, 'error': f"Ошибка при чтении файла: {str(e)}"}
     
-    # Преобразуем в строки для CSV
     topics_str = ', '.join(topics)
     sentiments_str = ', '.join(sentiments)
     product_category_str = ', '.join(product_categories)
     
-    # Средний рейтинг
     avg_rating = sum(rating_map.get(s, 3) for s in sentiments) / len(sentiments) if sentiments else 3
     
-    # Добавляем запись
     try:
         new_review = pd.DataFrame({
             'text': [text],
@@ -259,7 +249,6 @@ def process_review(review):
     
     return {'id': id, 'topics': topics, 'sentiments': sentiments, 'product_category': product_categories}
 
-# Загрузка и обработка данных
 @st.cache_data
 def load_data(uploaded_file, file_type):
     if uploaded_file is not None:
@@ -273,39 +262,34 @@ def load_data(uploaded_file, file_type):
                     result = process_review(review)
                     if 'error' not in result:
                         predictions.append(result)
-                # Преобразуем в DataFrame
+                # Создаём DataFrame с полными данными из JSON
                 rows = []
-                for pred in predictions:
-                    rows.append({
+                for pred, orig in zip(predictions, data['data']):
+                    row = {
                         'id': pred['id'],
-                        'text': data['data'][predictions.index(pred)].get('text', ''),
+                        'text': orig.get('text', ''),
                         'topics': ', '.join(pred['topics']),
                         'sentiments': ', '.join(pred['sentiments']),
-                        'product_category': ', '.join(pred['product_category'])
-                    })
+                        'product_category': ', '.join(pred['product_category']),
+                        'date': orig.get('date', datetime.now().strftime('%d.%m.%Y')),
+                        'rating': orig.get('rating', 3),
+                        'author': orig.get('author', 'Клиент банка'),
+                        'source': orig.get('source', 'gold'),
+                        'title': ' '.join(re.findall(r'\w+', orig.get('text', ''))[:5]) if orig.get('text', '') else 'Без заголовка'
+                    }
+                    rows.append(row)
                 df = pd.DataFrame(rows)
-                # Добавляем дополнительные колонки, если есть
-                if 'rating' in data['data'][0]:
-                    df['rating'] = [item.get('rating') for item in data['data']]
-                if 'date' in data['data'][0]:
-                    df['date'] = pd.to_datetime([item.get('date', datetime.now().strftime('%d.%m.%Y')) for item in data['data']], format='%d.%m.%Y', errors='coerce')
-                if 'author' in data['data'][0]:
-                    df['author'] = [item.get('author', 'Клиент банка') for item in data['data']]
-                if 'source' in data['data'][0]:
-                    df['source'] = [item.get('source', 'gold') for item in data['data']]
             else:
                 st.error("Неверный формат JSON. Ожидается {'data': [{'id': 1, 'text': '...'}]}")
                 return pd.DataFrame()
 
         if not df.empty:
-            # Проверка необходимых колонок
             required_cols = ['text']
             if not all(col in df.columns for col in required_cols):
                 missing_cols = [col for col in required_cols if col not in df.columns]
                 st.error(f"Отсутствуют колонки: {missing_cols}. Проверьте данные.")
                 return pd.DataFrame()
 
-            # Дополняем данными из process_review, если нужно
             if 'product_category' not in df.columns:
                 df['product_category'] = df['text'].apply(lambda x: ', '.join(classify_product_category(x, classify_topics(x))))
             if 'sentiments' not in df.columns:
@@ -333,14 +317,12 @@ def load_data(uploaded_file, file_type):
             return expanded_df
     return pd.DataFrame()
 
-# Логика загрузки данных
 if uploaded_csv or uploaded_json:
     df = load_data(uploaded_csv if uploaded_csv else uploaded_json, 'csv' if uploaded_csv else 'json')
 else:
     df = pd.DataFrame()
     st.sidebar.warning("Загрузите CSV или JSON с отзывами для анализа")
 
-# Фильтры в сайдбаре
 if not df.empty:
     st.sidebar.header("Фильтры")
     min_date = df['date'].min().date() if 'date' in df and pd.notna(df['date'].min()) else datetime(2024, 1, 1).date()
@@ -370,17 +352,19 @@ if not df.empty:
     rating_filter = st.sidebar.slider("Рейтинг", min_value=1, max_value=5, value=(1, 5)) if 'rating' in df.columns else (1, 5)
     keyword_filter = st.sidebar.text_input("Ключевое слово в тексте", "")
 
-    # Фильтрация данных
-    mask = (df['date'].dt.date >= start_date) & (df['date'].dt.date <= end_date) if 'date' in df.columns else True
+    # Фильтрация данных с проверкой наличия колонок
+    mask = pd.Series(True, index=df.index)  # Начальная маска
+    if 'date' in df.columns:
+        mask &= (df['date'].dt.date >= start_date) & (df['date'].dt.date <= end_date)
     if 'rating' in df.columns:
         mask &= df['rating'].between(*rating_filter)
-    if source_filter and 'Все' not in source_filter and 'source' in df.columns:
+    if 'source' in df.columns and source_filter and 'Все' not in source_filter:
         mask &= df['source'].isin(source_filter)
-    if sentiment_filter and 'Все' not in sentiment_filter and 'sentiments' in df.columns:
+    if 'sentiments' in df.columns and sentiment_filter and 'Все' not in sentiment_filter:
         mask &= df['sentiments'].str.contains('|'.join(sentiment_filter), case=False, na=False)
     if product_filter and 'Все' not in product_filter:
         mask &= df['product_category'].isin(product_filter + subcategories_filter)
-    if keyword_filter and 'text' in df.columns:
+    if 'text' in df.columns and keyword_filter:
         mask &= df['text'].str.contains(keyword_filter, case=False, na=False, regex=True)
 
     filtered_df = df[mask].copy()
