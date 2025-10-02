@@ -12,31 +12,9 @@ st.set_page_config(layout="wide", page_title="Аналитика отзывов 
 # Заголовок
 st.title("Аналитика отзывов о Газпромбанке")
 
-# Сайдбар для загрузки JSON и фильтров
+# Сайдбар для загрузки JSON
 st.sidebar.header("Загрузка и фильтры")
-uploaded_json = st.sidebar.file_uploader("Загрузите JSON с отзывам", type=['json'])
-
-# Фильтры
-if 'df' in locals():
-    min_date = df['date'].min().date() if 'date' in df and pd.notna(df['date'].min()) else datetime(2024, 1, 1).date()
-    max_date = df['date'].max().date() if 'date' in df and pd.notna(df['date'].max()) else datetime(2025, 10, 2).date()
-    start_date = st.sidebar.date_input("Начальная дата", min_date, min_value=min_date, max_value=max_date)
-    end_date = st.sidebar.date_input("Конечная дата", max_date, min_value=min_date, max_value=max_date)
-
-    rating_filter = st.sidebar.slider("Рейтинг", min_value=1, max_value=5, value=(1, 5))
-
-    product_categories = ['Все'] + sorted(['Повседневные финансы и платежи', 'Сбережения и накопления', 'Кредитование', 'Инвестиции', 'Страхование и защита', 'Премиальные услуги'])
-    product_filter = st.sidebar.multiselect("Категория продукта", options=product_categories, default=['Все'])
-
-    subcategories = {
-        'Повседневные финансы и платежи': ['Ведение валютных счетов', 'Дебетовые карты', 'Мобильный банк', 'Переводы', 'Зарплатные карты'],
-        'Сбережения и накопления': ['Срочные вклады', 'Сберегательные счета', 'Обезличенные металлические счета', 'Накопительные счета'],
-        'Кредитование': ['Потребительские кредиты', 'Кредитные карты', 'Ипотечные кредиты', 'Автокредиты', 'Рефинансирование'],
-        'Инвестиции': ['Брокерский счет', 'ИИС (Индивидуальный инвестиционный счет)', 'ПИФы (Паевые инвестиционные фонды)', 'Структурные продукты'],
-        'Страхование и защита': ['Страхование путешествий', 'Страхование имущества', 'Страхование от несчастных случаев и болезней', 'Страхование при оформлении кредитов'],
-        'Премиальные услуги': ['Приват банкинг', 'Депозитарные ячейки', 'Услуги по консультированию и планированию']
-    }
-    subcat_filter = st.sidebar.multiselect("Подкатегория продукта", options=[subcat for cats in subcategories.values() for subcat in cats], default=[])
+uploaded_json = st.sidebar.file_uploader("Загрузите JSON с отзывами", type=['json'])
 
 # Словарь для тональности
 SENTIMENT_LEXICON = {
@@ -257,11 +235,32 @@ def load_data(uploaded_file):
 
 if uploaded_json:
     df = load_data(uploaded_json)
+    # Фильтры после загрузки данных
+    st.sidebar.header("Фильтры")
+    min_date = df['date'].min().date() if 'date' in df and pd.notna(df['date'].min()) else datetime(2024, 1, 1).date()
+    max_date = df['date'].max().date() if 'date' in df and pd.notna(df['date'].max()) else datetime(2025, 10, 2).date()
+    start_date = st.sidebar.date_input("Начальная дата", min_date, min_value=min_date, max_value=max_date)
+    end_date = st.sidebar.date_input("Конечная дата", max_date, min_value=min_date, max_value=max_date)
+
+    rating_filter = st.sidebar.slider("Рейтинг", min_value=1, max_value=5, value=(1, 5))
+
+    product_categories = ['Все'] + sorted(['Повседневные финансы и платежи', 'Сбережения и накопления', 'Кредитование', 'Инвестиции', 'Страхование и защита', 'Премиальные услуги'])
+    product_filter = st.sidebar.multiselect("Категория продукта", options=product_categories, default=['Все'])
+
+    subcategories = {
+        'Повседневные финансы и платежи': ['Ведение валютных счетов', 'Дебетовые карты', 'Мобильный банк', 'Переводы', 'Зарплатные карты'],
+        'Сбережения и накопления': ['Срочные вклады', 'Сберегательные счета', 'Обезличенные металлические счета', 'Накопительные счета'],
+        'Кредитование': ['Потребительские кредиты', 'Кредитные карты', 'Ипотечные кредиты', 'Автокредиты', 'Рефинансирование'],
+        'Инвестиции': ['Брокерский счет', 'ИИС (Индивидуальный инвестиционный счет)', 'ПИФы (Паевые инвестиционные фонды)', 'Структурные продукты'],
+        'Страхование и защита': ['Страхование путешествий', 'Страхование имущества', 'Страхование от несчастных случаев и болезней', 'Страхование при оформлении кредитов'],
+        'Премиальные услуги': ['Приват банкинг', 'Депозитарные ячейки', 'Услуги по консультированию и планированию']
+    }
+    subcat_filter = st.sidebar.multiselect("Подкатегория продукта", options=[subcat for cats in subcategories.values() for subcat in cats], default=[])
 else:
     df = pd.DataFrame()
     st.sidebar.warning("Загрузите JSON с отзывами для анализа")
 
-if not df.empty and 'df' in locals():
+if not df.empty:
     # Фильтрация
     mask = (df['date'].dt.date >= start_date) & (df['date'].dt.date <= end_date) & (df['rating'].between(*rating_filter))
     if 'Все' not in product_filter and product_filter:
