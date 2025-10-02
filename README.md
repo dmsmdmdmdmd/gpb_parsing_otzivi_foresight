@@ -201,7 +201,7 @@ It opens a beautiful and clear dashboard with full analysis. <br>
 
 <h1>dash.py</h1>
 <br>
-,Gazprombank reviews analysis
+📊 Gazprombank reviews analysis
 
 A web application for analyzing customer reviews of Gazprombank's products and services.<br>
 Developed using Streamlit, Pandas and Plotly.<br>
@@ -235,7 +235,7 @@ After uploading the JSON in the sidebar:
 </ul>
 </ul>
 
-, Loading and filtering interface
+📋 Loading and filtering interface
 
 Automatic review processing:
 <ul>
@@ -260,13 +260,13 @@ Interactive filters:
 </ul>
 Visualizations:
 
-, A diagram of the distribution of the tonality of reviews,
+📈 A diagram of the distribution of the tonality of reviews,
 
-, Distribution of reviews by category and subcategory,
+📊 Distribution of reviews by category and subcategory,
 
-, A table with detailed data on reviews.
+📝A table with detailed data on reviews.
 
-, The structure of the analysis
+🗂 The structure of the analysis
 
 Product categories and subcategories
 
@@ -319,15 +319,15 @@ visualizations by tonality and category,
 
 the ability to filter by parameters.
 
-, Loading and filtering interface
+📋 Loading and filtering interface
 
-, Table with reviews
+📝 Table with reviews
 
-, Tonality diagram
+😊 Tonality diagram
 
-, Categorization
+📊 Categorization
 
-, Technologies used
+🛠 Technologies used
 
 *Streamlit*
 — interface and interactive filters
