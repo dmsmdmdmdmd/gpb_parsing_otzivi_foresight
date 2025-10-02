@@ -198,6 +198,151 @@ It opens a beautiful and clear dashboard with full analysis. <br>
 
 **<h3>Everything is simple</h3>** <br>
 <br> 1.Moving on *[By the link](https://gpbparsingotziviforesight-wgf4rxgq65hm6pbuqb4cad.streamlit.app/)*. <br>
+
+<h1>dash.py</h1>
+<br>
+,Gazprombank reviews analysis
+
+A web application for analyzing customer reviews of Gazprombank's products and services.<br>
+Developed using Streamlit, Pandas and Plotly.<br>
+
+<h3>🚀 Features</h3>
+
+Uploading reviews from a JSON file format:<br>
+
+```{
+  "data": [
+{"id": 1, "text": "Excellent mobile app, but translations are sometimes delayed", "author": "Ivan"},
+    {"id": 2, "text": "I am very happy with the mortgage, but the application often freezes", "author": "Anna"}
+]
+}
+```
+📂 Work example
+
+After uploading the JSON in the sidebar:
+<ul>
+<li>a table with reviews will appear (id, text, subject, tone, rating, date),</li>
+
+<li>visualizations by tonality and categories, </li>
+
+<li>the ability to filter by parameters: </li>
+<ul>
+<li>date (start and end date are indicated on the page using the calendar),</li>
+
+<li>rating (slider from 1 to 5),</li>
+
+<li>categories and subcategories (multiple choice).</li>
+</ul>
+</ul>
+
+, Loading and filtering interface
+
+Automatic review processing:
+<ul>
+
+<li>defining the subject (product categories and subcategories),</li>
+
+<li>tonality analysis (positive, neutral, negative),</li>
+
+<li>calculation of conditional rating (1-5).</li>
+
+</ul>
+
+Interactive filters:
+<ul>
+ 
+<li>by date,</li>
+
+<li>by rating,</li>
+
+<li>by category and subcategory.</li>
+
+</ul>
+Visualizations:
+
+, A diagram of the distribution of the tonality of reviews,
+
+, Distribution of reviews by category and subcategory,
+
+, A table with detailed data on reviews.
+
+, The structure of the analysis
+
+Product categories and subcategories
+
+The product dictionary strictly complies with the TOR and includes:
+<ul>
+ 
+<li>Everyday finance and payments</li>
+
+<li>Savings and savings</li>
+
+<li>Lending</li>
+
+<li>Investments</li>
+
+<li>Insurance and protection</li>
+
+<li>Premium services</li>
+
+<li>Classification of reviews</li>
+
+<li>Splitting the text into fragments (by conjunctions: "and", "but", "however", etc.)
+
+<li>Defining a topic by keywords and phrases</li>
+
+<li>Tonality analysis using custom vocabulary and negation processing </li>
+
+<li>Calculation of the final rating: </li>
+<ul>
+<li>👍 All positive → rating 5</li>
+
+<li>😐 All neutral → rating 3</li>
+
+<li>👎 There is a negative → rating 1</li>
+</ul>
+</ul>
+
+Conclusions
+
+If the review does not relate to the bank's products, it falls into the *"Other"* category.
+
+For *"Other"* Tonality is determined throughout the text.<br>
+
+<h2>Example of operation</h2>
+
+After uploading the JSON in the sidebar:
+
+a table with reviews will appear (id, text, subject, tone, rating, date),
+
+visualizations by tonality and category,
+
+the ability to filter by parameters.
+
+, Loading and filtering interface
+
+, Table with reviews
+
+, Tonality diagram
+
+, Categorization
+
+, Technologies used
+
+*Streamlit*
+— interface and interactive filters
+
+*Pandas*
+ — data processing
+
+*Plotly*
+ — visualization
+
+*re*
+— text processing
+
+*datetime*
+ — working with dates
 2.Download the format file.json with reviews, <br>
 3.Enjoy <br>
 <br>
